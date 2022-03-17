@@ -16,7 +16,7 @@ extension ViewController: ARSessionDelegate {
         
         switch camera.trackingState {
         case .notAvailable, .limited:
-            statusViewController.escalateFeedback(for: camera.trackingState, inSeconds: 3.0)
+            statusViewController.escalateFeedback(for: camera.trackingState, inSeconds: 5.0)
         case .normal:
             statusViewController.cancelScheduledMessage(for: .trackingStateEscalation)
         }

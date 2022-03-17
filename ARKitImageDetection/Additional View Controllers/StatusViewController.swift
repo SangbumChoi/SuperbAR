@@ -39,7 +39,7 @@ class StatusViewController: UIViewController {
     var restartExperienceHandler: () -> Void = {}
     
     /// Seconds before the timer message should fade out. Adjust if the app needs longer transient messages.
-    private let displayDuration: TimeInterval = 6
+    private let displayDuration: TimeInterval = 1
     
     // Timer for hiding messages.
     private var messageHideTimer: Timer?
