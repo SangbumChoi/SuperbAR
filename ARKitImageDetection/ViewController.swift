@@ -90,7 +90,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let plane = SCNPlane(width: referenceImage.physicalSize.width,
                                  height: referenceImage.physicalSize.height)
             let planeNode = SCNNode(geometry: plane)
-            planeNode.opacity = 0.25
+
+            planeNode.opacity = 1
             
             /*
              `SCNPlane` is vertically oriented in its local coordinate space, but
@@ -104,6 +105,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
              animation that limits the duration for which the plane visualization appears.
              */
             planeNode.runAction(self.imageHighlightAction)
+            
+            let fileURL = URL(fileURLWithPath: Bundle.main.path(forResource: "test", ofType: "mp4")!)
+            let player = AVPlayer(url: fileURL)
+            planeNode.geometry?.firstMaterial?.diffuse.contents = player
+            player.play()
             
             // Add the plane visualization to the scene.
             node.addChildNode(planeNode)
@@ -121,9 +127,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             .wait(duration: 0.25),
             .fadeOpacity(to: 0.85, duration: 0.25),
             .fadeOpacity(to: 0.15, duration: 0.25),
-            .fadeOpacity(to: 0.85, duration: 0.25),
-            .fadeOut(duration: 0.5),
-            .removeFromParentNode()
+            .fadeOpacity(to: 0.85, duration: 0.25)
+//            .fadeOut(duration: 0.5),
+//            .removeFromParentNode()
         ])
     }
 }
