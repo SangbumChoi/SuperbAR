@@ -68,11 +68,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     /// - Tag: ARReferenceImage-Loading
 	func resetTracking() {
         
-        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else {
+        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "Cards", bundle: nil) else {
             fatalError("Missing expected asset catalog resources.")
         }
         
-        let configuration = ARWorldTrackingConfiguration()
+        let configuration = ARImageTrackingConfiguration()
         configuration.detectionImages = referenceImages
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
 
@@ -90,7 +90,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let plane = SCNPlane(width: referenceImage.physicalSize.width,
                                  height: referenceImage.physicalSize.height)
             let planeNode = SCNNode(geometry: plane)
-            planeNode.opacity = 0.25
+            plane.cornerRadius = 1
+            plane.firstMaterial?.diffuse.contents = UIColor.gray.withAlphaComponent(0.8)
+
             
             /*
              `SCNPlane` is vertically oriented in its local coordinate space, but
@@ -98,7 +100,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
              rotate the plane to match.
              */
             planeNode.eulerAngles.x = -.pi / 2
-            
+            planeNode.position.z -= Float(imageAnchor.referenceImage.physicalSize.height)
             /*
              Image anchors are not tracked after initial detection, so create an
              animation that limits the duration for which the plane visualization appears.
@@ -107,6 +109,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             // Add the plane visualization to the scene.
             node.addChildNode(planeNode)
+            
+            
+            // Create text description of the detected card image.
+            
+            var profileDescriptions = ["hbh":"바환 says) I don't work here",
+                                        "ljh":"종혁 says) Alcohol is bad",
+                                        "yyh":"용환 says) This is yoosful",
+                                        "nts":"태상 says) Why am I here?"]
+            let text = SCNText(string: profileDescriptions[imageAnchor.referenceImage.name!], extrusionDepth: 1)
+            text.font = UIFont (name: "Arial", size: 1)
+            text.firstMaterial!.diffuse.contents = UIColor.black
+            let textNode = SCNNode(geometry: text)
+            let (minVec, maxVec) = textNode.boundingBox
+            textNode.pivot = SCNMatrix4MakeTranslation((maxVec.x - minVec.x) / 2 + minVec.x , (maxVec.y - minVec.y) / 2 - Float(imageAnchor.referenceImage.physicalSize.height) + minVec.y, 0)
+            textNode.eulerAngles.x = -.pi / 2
+            node.addChildNode(textNode)
         }
 
         DispatchQueue.main.async {
