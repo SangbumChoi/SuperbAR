@@ -11,9 +11,16 @@ import UIKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
     
+    var showAR: Bool = true;
+    @IBOutlet weak var toggleSwitchView: UISwitch!
+    
     @IBOutlet var sceneView: ARSCNView!
     
     @IBOutlet weak var blurView: UIVisualEffectView!
+    
+    @IBAction func toggleSwitchValueChanged(_ sender: Any) {
+        self.showAR = toggleSwitchView.isOn;
+    }
     
     /// The view controller that displays the status and "restart experience" UI.
     lazy var statusViewController: StatusViewController = {
@@ -37,6 +44,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
         sceneView.session.delegate = self
 
+        // Show statistics such as fps and timing information
+        sceneView.showsStatistics = true
+        
         // Hook up status view controller callback(s).
         statusViewController.restartExperienceHandler = { [unowned self] in
             self.restartExperience()
@@ -74,6 +84,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.detectionImages = referenceImages
+        configuration.maximumNumberOfTrackedImages = 1
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
 
         statusViewController.scheduleMessage("Look around to detect images", inSeconds: 7.5, messageType: .contentPlacement)
@@ -84,6 +95,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnchor = anchor as? ARImageAnchor else { return }
         let referenceImage = imageAnchor.referenceImage
+        if (!self.showAR) {return};
         updateQueue.async {
             
             // Create a plane to visualize the initial position of the detected image.
