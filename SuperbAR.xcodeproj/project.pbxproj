@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		05B5C64D2249FA1900B7621A /* Harry Pokker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Harry Pokker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05B5C64D2249FA1900B7621A /* SuperbAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperbAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05B5C6502249FA1900B7621A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05B5C6522249FA1900B7621A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		05B5C6542249FA1900B7621A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		05B5C6442249FA1900B7621A = {
 			isa = PBXGroup;
 			children = (
-				05B5C64F2249FA1900B7621A /* Harry Pokker */,
+				05B5C64F2249FA1900B7621A /* SuperbAR */,
 				05B5C64E2249FA1900B7621A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,12 +50,12 @@
 		05B5C64E2249FA1900B7621A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				05B5C64D2249FA1900B7621A /* Harry Pokker.app */,
+				05B5C64D2249FA1900B7621A /* SuperbAR.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		05B5C64F2249FA1900B7621A /* Harry Pokker */ = {
+		05B5C64F2249FA1900B7621A /* SuperbAR */ = {
 			isa = PBXGroup;
 			children = (
 				05B5C6502249FA1900B7621A /* AppDelegate.swift */,
@@ -67,15 +67,15 @@
 				05B5C65E2249FA1B00B7621A /* Info.plist */,
 				05B5C6642249FB8700B7621A /* black.mp4 */,
 			);
-			path = "Harry Pokker";
+			path = SuperbAR;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		05B5C64C2249FA1900B7621A /* Harry Pokker */ = {
+		05B5C64C2249FA1900B7621A /* SuperbAR */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 05B5C6612249FA1B00B7621A /* Build configuration list for PBXNativeTarget "Harry Pokker" */;
+			buildConfigurationList = 05B5C6612249FA1B00B7621A /* Build configuration list for PBXNativeTarget "SuperbAR" */;
 			buildPhases = (
 				05B5C6492249FA1900B7621A /* Sources */,
 				05B5C64A2249FA1900B7621A /* Frameworks */,
@@ -85,9 +85,9 @@
 			);
 			dependencies = (
 			);
-			name = "Harry Pokker";
+			name = SuperbAR;
 			productName = "Harry Pokker";
-			productReference = 05B5C64D2249FA1900B7621A /* Harry Pokker.app */;
+			productReference = 05B5C64D2249FA1900B7621A /* SuperbAR.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -105,7 +105,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 05B5C6482249FA1900B7621A /* Build configuration list for PBXProject "Harry Pokker" */;
+			buildConfigurationList = 05B5C6482249FA1900B7621A /* Build configuration list for PBXProject "SuperbAR" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -118,7 +118,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				05B5C64C2249FA1900B7621A /* Harry Pokker */,
+				05B5C64C2249FA1900B7621A /* SuperbAR */,
 			);
 		};
 /* End PBXProject section */
@@ -290,8 +290,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P5686Q66AD;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Harry Pokker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -300,6 +301,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = sangbum.choi.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -309,8 +311,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P5686Q66AD;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Harry Pokker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -319,6 +322,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = sangbum.choi.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -327,7 +331,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		05B5C6482249FA1900B7621A /* Build configuration list for PBXProject "Harry Pokker" */ = {
+		05B5C6482249FA1900B7621A /* Build configuration list for PBXProject "SuperbAR" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				05B5C65F2249FA1B00B7621A /* Debug */,
@@ -336,7 +340,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		05B5C6612249FA1B00B7621A /* Build configuration list for PBXNativeTarget "Harry Pokker" */ = {
+		05B5C6612249FA1B00B7621A /* Build configuration list for PBXNativeTarget "SuperbAR" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				05B5C6622249FA1B00B7621A /* Debug */,
