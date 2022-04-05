@@ -14,6 +14,7 @@
 		05B5C65A2249FA1B00B7621A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6592249FA1B00B7621A /* Assets.xcassets */; };
 		05B5C65D2249FA1B00B7621A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C65B2249FA1B00B7621A /* LaunchScreen.storyboard */; };
 		05B5C6652249FB8700B7621A /* black.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6642249FB8700B7621A /* black.mp4 */; };
+		7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FABED2E27FC7FCE00B7DA40 /* logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		05B5C65C2249FA1B00B7621A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		05B5C65E2249FA1B00B7621A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05B5C6642249FB8700B7621A /* black.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = black.mp4; sourceTree = "<group>"; };
+		7FABED2E27FC7FCE00B7DA40 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				05B5C65B2249FA1B00B7621A /* LaunchScreen.storyboard */,
 				05B5C65E2249FA1B00B7621A /* Info.plist */,
 				05B5C6642249FB8700B7621A /* black.mp4 */,
+				7FABED2E27FC7FCE00B7DA40 /* logo.png */,
 			);
 			path = SuperbAR;
 			sourceTree = "<group>";
@@ -130,6 +133,7 @@
 			files = (
 				05B5C6532249FA1900B7621A /* art.scnassets in Resources */,
 				05B5C65D2249FA1B00B7621A /* LaunchScreen.storyboard in Resources */,
+				7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */,
 				05B5C6652249FB8700B7621A /* black.mp4 in Resources */,
 				05B5C65A2249FA1B00B7621A /* Assets.xcassets in Resources */,
 				05B5C6582249FA1900B7621A /* Main.storyboard in Resources */,
