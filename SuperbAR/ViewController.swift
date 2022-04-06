@@ -1,125 +1,197 @@
 //
 //  ViewController.swift
-//  Harry Pokker
+//  DynamicImage
 //
-//  Created by Bilguun Batbold on 26/3/19.
-//  Copyright © 2019 Bilguun. All rights reserved.
+//  Created By Josh Robbins (∩｀-´)⊃━☆ﾟ.*･｡ﾟ* 27/04/2019.
+//  Copyright © 2019 BlackMirrorz. All rights reserved.
 //
 
 import UIKit
-import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+//------------------------
+//MARK:- ARSCNViewDelegate
+//------------------------
+
+extension ViewController: ARSCNViewDelegate{
+  
+  func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+   
+    guard let imageAnchor = anchor as? ARImageAnchor, let imageName = imageAnchor.name?.capitalized else { return }
+      
+          
+    let referenceImage = imageAnchor.referenceImage
+    // create a plan that has the same real world height and width as our detected image
+    let plane = SCNPlane(width: referenceImage.physicalSize.width, height: referenceImage.physicalSize.height)
+    let planeNode = SCNNode(geometry: plane)
+    // plane.cornerRadius = 1
+    plane.firstMaterial?.diffuse.contents = UIColor.black.withAlphaComponent(0.9)
+
+    /*
+    `SCNPlane` is vertically oriented in its local coordinate space, but
+    `ARImageAnchor` assumes the image is horizontal in its local space, so
+    rotate the plane to match.
+    */
+    planeNode.position.x -= Float(imageAnchor.referenceImage.physicalSize.width)
+
+    print(imageAnchor.referenceImage.name)
+      
+    let profileDescriptions = ["minion":"바환 says) I don't work here",
+                              "ljh":"종혁 says) Alcohol is bad",
+                              "Test":"용환 says) This is yoosful",
+                              "nts":"태상 says) Why am I here?"]
+
+    let text = SCNText(string: profileDescriptions[imageAnchor.referenceImage.name!], extrusionDepth: 1)
+    text.font = UIFont (name: "Arial", size: 1)
+    text.firstMaterial!.diffuse.contents = UIColor.black
+    let textNode = SCNNode(geometry: text)
+
+    let (min, max) = (text.boundingBox.min, text.boundingBox.max)
+    let dx = min.x + 0.5 * (max.x - min.x)
+    let dy = min.y + 0.5 * (max.y - min.y)
+    let dz = min.z + 0.5 * (max.z - min.z)
+    textNode.pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
+    let fontScale: Float = 0.01
+    textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
+
+    // textNode.position.z -= Float(imageAnchor.referenceImage.physicalSize.height)
+
+    textNode.eulerAngles.x = -.pi / 2
+    node.addChildNode(textNode)
+      
+    trackingLabel.showText("\(imageName) Detected", andHideAfter: 5)
+    node.addChildNode(VideoNode(withReferenceImage: imageAnchor.referenceImage))
     
-    @IBOutlet var sceneView: ARSCNView!
+  }
+  
+}
+
+//------------------------
+//MARK:- Making UILabel custom function
+//------------------------
+
+extension UILabel{
+  
+  /// Updates The Text And Hides It After A Delay
+  ///
+  /// - Parameters:
+  ///   - text: String
+  ///   - delay: Double
+  func showText(_ text: String, andHideAfter delay: Double){
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Set the view's delegate
-        sceneView.delegate = self
-        
+    DispatchQueue.main.async {
+      
+      self.text = text
+      self.alpha = 1
+      UIView.animate(withDuration: delay, animations: { self.alpha = 0 } )
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+  }
+}
+
+
+
+class ViewController: UIViewController {
+  
+  @IBOutlet weak var contentStackView: UIStackView!{
+    didSet{
+      contentStackView.subviews.forEach { $0.isHidden = true }
+    }
+  }
+  
+  @IBOutlet weak var trackingLabel: UILabel!
+  
+  @IBOutlet weak var downloadButton: UIButton!{
+    didSet{
+      downloadButton.layer.cornerRadius = 10
+      downloadButton.layer.borderWidth = 2
+      downloadButton.layer.borderColor = UIColor.white.cgColor
+      downloadButton.layer.masksToBounds = true
+    }
+  }
+  
+  @IBOutlet weak var downloadSpinner: UIActivityIndicatorView!{
+    didSet{
+      downloadSpinner.alpha = 0
+    }
+  }
+  
+  @IBOutlet weak var downloadLabel: UILabel!{
+    didSet{
+      downloadLabel.text = ""
+    }
+  }
+  
+  @IBOutlet weak var augmentedRealityView: ARSCNView!
+  var augmentedRealityConfiguration = ARImageTrackingConfiguration()
+  var augmentedRealitySession = ARSession()
+ 
+  //---------------------
+  //MARK:- View LifeCycle
+  //---------------------
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    startARSession()
+  
+  }
+  
+  //-----------------------------------------
+  //MARK:- Dynamic Reference Image Generation
+  //-----------------------------------------
+  
+  /// Downloads Our Images From The Server And Initializes Our ARSession
+  @IBAction func  generateImagesFromServer(){
+  
+    self.contentStackView.subviews[0].isHidden = false
+    self.contentStackView.subviews[1].isHidden = true
+    self.downloadSpinner.alpha = 1
+    self.downloadSpinner.startAnimating()
+    self.downloadLabel.text = "Downloading Images From Server"
+    
+    ImageDownloader.downloadImagesFromPaths { (result) in
+      
+      print(result)
         
-        // Create a session configuration
-        let configuration = ARImageTrackingConfiguration()
+      switch result{
         
-        // first see if there is a folder called "ARImages" Resource Group in our Assets Folder
-        if let trackedImages = ARReferenceImage.referenceImages(inGroupNamed: "ARImages", bundle: Bundle.main) {
-            
-            // if there is, set the images to track
-            configuration.trackingImages = trackedImages
-            // at any point in time, only 1 image will be tracked
-            configuration.maximumNumberOfTrackedImages = 1
+      case .success(let dynamicConent):
+        
+        self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 10
+        self.augmentedRealityConfiguration.trackingImages = dynamicConent
+        self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
+        
+        
+        DispatchQueue.main.async {
+          
+          self.downloadSpinner.alpha = 0
+          self.downloadSpinner.stopAnimating()
+          self.contentStackView.subviews[0].isHidden = true
+          self.contentStackView.subviews[1].isHidden = false
+          self.trackingLabel.showText("Images Generated Sucesfully", andHideAfter: 5)
+          
         }
+       
+      case .failure(let error):
         
-        // Run the view's session
-        sceneView.session.run(configuration)
+        print("An Error Occured Generating The Dynamic Reference Images \(error)")
+      }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        sceneView.session.pause()
-    }
+  }
+
+  //----------------
+  //MARK:- ARSession
+  //----------------
+  func startARSession(){
     
-    // MARK: - ARSCNViewDelegate
+    augmentedRealityView.session = augmentedRealitySession
+    augmentedRealityView.delegate = self
+
+    augmentedRealitySession.run(augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
     
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        
-        // if the anchor is not of type ARImageAnchor (which means image is not detected), just return
-        guard let imageAnchor = anchor as? ARImageAnchor, let fileUrlString = Bundle.main.path(forResource: "black", ofType: "mp4") else {return}
-        
-        let referenceImage = imageAnchor.referenceImage
-        // create a plan that has the same real world height and width as our detected image
-        let plane = SCNPlane(width: referenceImage.physicalSize.width, height: referenceImage.physicalSize.height)
-        let planeNode = SCNNode(geometry: plane)
-        // plane.cornerRadius = 1
-        plane.firstMaterial?.diffuse.contents = UIColor.black.withAlphaComponent(0.9)
-        
-        /*
-         `SCNPlane` is vertically oriented in its local coordinate space, but
-         `ARImageAnchor` assumes the image is horizontal in its local space, so
-         rotate the plane to match.
-         */
-        planeNode.position.x -= Float(imageAnchor.referenceImage.physicalSize.width)
-        
-        //find our video file
-        let videoItem = AVPlayerItem(url: URL(fileURLWithPath: fileUrlString))
-        
-        let player = AVPlayer(playerItem: videoItem)
-        //initialize video node with avplayer
-        let videoNode = SKVideoNode(avPlayer: player)
-        
-        player.play()
-        // add observer when our player.currentItem finishes player, then start playing from the beginning
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: nil) { (notification) in
-            player.seek(to: CMTime.zero)
-            player.play()
-        }
-        
-        // set the size (just a rough one will do)
-        let videoScene = SKScene(size: CGSize(width: 480, height: 360))
-        // center our video to the size of our video scene
-        videoNode.position = CGPoint(x: videoScene.size.width / 2, y: videoScene.size.height / 2)
-        // invert our video so it does not look upside down
-        videoNode.yScale = -1.0
-        // add the video to our scene
-        videoScene.addChild(videoNode)
-        // set the first materials content to be our video scene
-        plane.firstMaterial?.diffuse.contents = videoScene
-        // since the created node will be vertical, rotate it along the x axis to have it be horizontal or parallel to our detected image
-        planeNode.eulerAngles.x = -Float.pi / 2
-        // finally add the plane node (which contains the video node) to the added node
-        node.addChildNode(planeNode)
-        
-        let profileDescriptions = ["black":"바환 says) I don't work here",
-                                    "ljh":"종혁 says) Alcohol is bad",
-                                    "Test":"용환 says) This is yoosful",
-                                    "nts":"태상 says) Why am I here?"]
-        
-        let text = SCNText(string: profileDescriptions[imageAnchor.referenceImage.name!], extrusionDepth: 1)
-        text.font = UIFont (name: "Arial", size: 1)
-        text.firstMaterial!.diffuse.contents = UIColor.black
-        let textNode = SCNNode(geometry: text)
-        
-        let (min, max) = (text.boundingBox.min, text.boundingBox.max)
-        let dx = min.x + 0.5 * (max.x - min.x)
-        let dy = min.y + 0.5 * (max.y - min.y)
-        let dz = min.z + 0.5 * (max.z - min.z)
-        textNode.pivot = SCNMatrix4MakeTranslation(dx, dy, dz)
-        let fontScale: Float = 0.01
-        textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
-        
-        // textNode.position.z -= Float(imageAnchor.referenceImage.physicalSize.height)
-        
-        textNode.eulerAngles.x = -.pi / 2
-        node.addChildNode(textNode)
-        
-    }
+  }
+  
+
 }

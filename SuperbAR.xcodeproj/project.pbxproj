@@ -15,6 +15,8 @@
 		05B5C65D2249FA1B00B7621A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C65B2249FA1B00B7621A /* LaunchScreen.storyboard */; };
 		05B5C6652249FB8700B7621A /* black.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6642249FB8700B7621A /* black.mp4 */; };
 		7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FABED2E27FC7FCE00B7DA40 /* logo.png */; };
+		B0F9083E27FDC166008E65F6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */; };
+		B0F9084027FDC407008E65F6 /* VideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9083F27FDC407008E65F6 /* VideoNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		05B5C65E2249FA1B00B7621A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05B5C6642249FB8700B7621A /* black.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = black.mp4; sourceTree = "<group>"; };
 		7FABED2E27FC7FCE00B7DA40 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		B0F9083F27FDC407008E65F6 /* VideoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				05B5C65E2249FA1B00B7621A /* Info.plist */,
 				05B5C6642249FB8700B7621A /* black.mp4 */,
 				7FABED2E27FC7FCE00B7DA40 /* logo.png */,
+				B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */,
+				B0F9083F27FDC407008E65F6 /* VideoNode.swift */,
 			);
 			path = SuperbAR;
 			sourceTree = "<group>";
@@ -148,7 +154,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				05B5C6552249FA1900B7621A /* ViewController.swift in Sources */,
+				B0F9083E27FDC166008E65F6 /* ImageDownloader.swift in Sources */,
 				05B5C6512249FA1900B7621A /* AppDelegate.swift in Sources */,
+				B0F9084027FDC407008E65F6 /* VideoNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,8 +304,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "Harry Pokker/Info.plist";
+				DEVELOPMENT_TEAM = P5686Q66AD;
+				INFOPLIST_FILE = "$(SRCROOT)/SuperbAR/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -317,8 +325,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "Harry Pokker/Info.plist";
+				DEVELOPMENT_TEAM = P5686Q66AD;
+				INFOPLIST_FILE = "$(SRCROOT)/SuperbAR/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
