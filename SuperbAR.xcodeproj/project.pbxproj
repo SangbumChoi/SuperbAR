@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		05B5C6512249FA1900B7621A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5C6502249FA1900B7621A /* AppDelegate.swift */; };
-		05B5C6532249FA1900B7621A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6522249FA1900B7621A /* art.scnassets */; };
 		05B5C6552249FA1900B7621A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5C6542249FA1900B7621A /* ViewController.swift */; };
 		05B5C6582249FA1900B7621A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6562249FA1900B7621A /* Main.storyboard */; };
 		05B5C65A2249FA1B00B7621A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6592249FA1B00B7621A /* Assets.xcassets */; };
@@ -22,7 +21,6 @@
 /* Begin PBXFileReference section */
 		05B5C64D2249FA1900B7621A /* SuperbAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperbAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05B5C6502249FA1900B7621A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		05B5C6522249FA1900B7621A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		05B5C6542249FA1900B7621A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		05B5C6572249FA1900B7621A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		05B5C6592249FA1B00B7621A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,7 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				05B5C6502249FA1900B7621A /* AppDelegate.swift */,
-				05B5C6522249FA1900B7621A /* art.scnassets */,
 				05B5C6542249FA1900B7621A /* ViewController.swift */,
 				05B5C6562249FA1900B7621A /* Main.storyboard */,
 				05B5C6592249FA1B00B7621A /* Assets.xcassets */,
@@ -137,7 +134,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05B5C6532249FA1900B7621A /* art.scnassets in Resources */,
 				05B5C65D2249FA1B00B7621A /* LaunchScreen.storyboard in Resources */,
 				7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */,
 				05B5C6652249FB8700B7621A /* black.mp4 in Resources */,
@@ -311,7 +307,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = sangbum.choi.test;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = sangbum.choi.gg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -332,7 +329,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = sangbum.choi.test;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = sangbum.choi.gg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

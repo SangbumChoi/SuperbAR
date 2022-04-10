@@ -33,13 +33,11 @@ extension ViewController: ARSCNViewDelegate{
     rotate the plane to match.
     */
     planeNode.position.x -= Float(imageAnchor.referenceImage.physicalSize.width)
-
-    print(imageAnchor.referenceImage.name)
       
-    let profileDescriptions = ["minion":"바환 says) I don't work here",
-                              "ljh":"종혁 says) Alcohol is bad",
-                              "Test":"용환 says) This is yoosful",
-                              "nts":"태상 says) Why am I here?"]
+    let profileDescriptions = ["minion":"I says) I don't work here",
+                              "ljh":"I says) Alcohol is bad",
+                              "Test":"O says) This is yoosful",
+                              "nts":"O says) Why am I here?"]
 
     let text = SCNText(string: profileDescriptions[imageAnchor.referenceImage.name!], extrusionDepth: 1)
     text.font = UIFont (name: "Arial", size: 1)
