@@ -91,67 +91,69 @@ extension UILabel{
 
 class ViewController: UIViewController {
   
-  @IBOutlet weak var contentStackView: UIStackView!{
+    @IBOutlet weak var contentStackView: UIStackView!{
     didSet{
       contentStackView.subviews.forEach { $0.isHidden = true }
     }
-  }
-  
-  @IBOutlet weak var trackingLabel: UILabel!
-  
-  @IBOutlet weak var downloadButton: UIButton!{
+    }
+
+    @IBOutlet weak var outputImageView: UIImageView!
+
+    @IBOutlet weak var trackingLabel: UILabel!
+
+    @IBOutlet weak var downloadButton: UIButton!{
     didSet{
       downloadButton.layer.cornerRadius = 10
       downloadButton.layer.borderWidth = 2
       downloadButton.layer.borderColor = UIColor.white.cgColor
       downloadButton.layer.masksToBounds = true
     }
-  }
-  
-  @IBOutlet weak var downloadSpinner: UIActivityIndicatorView!{
+    }
+
+    @IBOutlet weak var downloadSpinner: UIActivityIndicatorView!{
     didSet{
       downloadSpinner.alpha = 0
     }
-  }
-  
-  @IBOutlet weak var downloadLabel: UILabel!{
+    }
+
+    @IBOutlet weak var downloadLabel: UILabel!{
     didSet{
       downloadLabel.text = ""
     }
-  }
-  
-  @IBOutlet weak var augmentedRealityView: ARSCNView!
-  var augmentedRealityConfiguration = ARImageTrackingConfiguration()
-  var augmentedRealitySession = ARSession()
- 
-  //---------------------
-  //MARK:- View LifeCycle
-  //---------------------
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    }
+
+    @IBOutlet weak var augmentedRealityView: ARSCNView!
     
-    startARSession()
+    var augmentedRealityConfiguration = ARImageTrackingConfiguration()
+    var augmentedRealitySession = ARSession()
+
+    //---------------------
+    //MARK:- View LifeCycle
+    //---------------------
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        startARSession()
+    }
+
+    @IBAction func takeScreenshotAction() {
+        outputImageView.image = augmentedRealityView.snapshot()
+    }
+    
+    //-----------------------------------------
+    //MARK:- Dynamic Reference Image Generation
+    //-----------------------------------------
   
-  }
-  
-  //-----------------------------------------
-  //MARK:- Dynamic Reference Image Generation
-  //-----------------------------------------
-  
-  /// Downloads Our Images From The Server And Initializes Our ARSession
-  @IBAction func  generateImagesFromServer(){
-  
+    /// Downloads Our Images From The Server And Initializes Our ARSession
+    @IBAction func  generateImagesFromServer(){
+
     self.contentStackView.subviews[0].isHidden = false
     self.contentStackView.subviews[1].isHidden = true
     self.downloadSpinner.alpha = 1
     self.downloadSpinner.startAnimating()
     self.downloadLabel.text = "Downloading Images From Server"
-    
+
     ImageDownloader.downloadImagesFromPaths { (result) in
-      
-      print(result)
-        
       switch result{
         
       case .success(let dynamicConent):
@@ -172,24 +174,18 @@ class ViewController: UIViewController {
         }
        
       case .failure(let error):
-        
         print("An Error Occured Generating The Dynamic Reference Images \(error)")
       }
     }
-    
-  }
+    }
 
-  //----------------
-  //MARK:- ARSession
-  //----------------
-  func startARSession(){
-    
+    //----------------
+    //MARK:- ARSession
+    //----------------
+    func startARSession(){
+
     augmentedRealityView.session = augmentedRealitySession
     augmentedRealityView.delegate = self
-
     augmentedRealitySession.run(augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
-    
-  }
-  
-
+    }
 }
