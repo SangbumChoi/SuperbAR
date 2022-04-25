@@ -50,9 +50,6 @@ class ImageDownloader{
       
   static let payloadData: [ReferenceImagePayload] = [
     ReferenceImagePayload(name: "minion", extensionType: FileSuffix.JPEG.name, orientation: .up, widthInM: 0.1),
-//    ReferenceImagePayload(name: "choco", extensionType: FileSuffix.JPEG.name, orientation: .up, widthInM: 0.1),
-//    ReferenceImagePayload(name: "cony", extensionType: FileSuffix.JPEG.name, orientation: .up, widthInM: 0.1),
-//    ReferenceImagePayload(name: "brown", extensionType: FileSuffix.JPEG.name, orientation: .up, widthInM: 0.1)
   ]
   
   static var receivedImageData = [ImageData]()

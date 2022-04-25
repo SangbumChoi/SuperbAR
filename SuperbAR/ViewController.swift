@@ -101,14 +101,16 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var trackingLabel: UILabel!
 
-    @IBOutlet weak var downloadButton: UIButton!{
-    didSet{
-      downloadButton.layer.cornerRadius = 10
-      downloadButton.layer.borderWidth = 2
-      downloadButton.layer.borderColor = UIColor.white.cgColor
-      downloadButton.layer.masksToBounds = true
-    }
-    }
+    @IBOutlet weak var downloadButton: UIButton!
+    
+    @IBOutlet weak var cameraButton: UIButton!
+//    didSet{
+//      downloadButton.layer.cornerRadius = 10
+//      downloadButton.layer.borderWidth = 2
+//      downloadButton.layer.borderColor = UIColor.white.cgColor
+//      downloadButton.layer.masksToBounds = true
+//    }
+//    }
 
     @IBOutlet weak var downloadSpinner: UIActivityIndicatorView!{
     didSet{
@@ -137,7 +139,30 @@ class ViewController: UIViewController {
     }
 
     @IBAction func takeScreenshotAction() {
-        outputImageView.image = augmentedRealityView.snapshot()
+        let referenceImage = augmentedRealityView.snapshot()
+        outputImageView.image = referenceImage
+        
+        guard let cgImage = referenceImage.cgImage else { return }
+        let ARImage = ARReferenceImage(cgImage, orientation: .up, physicalWidth:  0.1)
+        ARImage.name = "Snapshot"
+        
+        var referenceImages = Set<ARReferenceImage>()
+        referenceImages.insert(ARImage)
+        
+        self.augmentedRealityConfiguration.trackingImages = referenceImages
+        self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
+        
+        
+        DispatchQueue.main.async {
+          
+          self.downloadSpinner.alpha = 0
+          self.downloadSpinner.stopAnimating()
+          self.contentStackView.subviews[0].isHidden = true
+          self.contentStackView.subviews[1].isHidden = false
+          self.trackingLabel.showText("Images captured Sucesfully", andHideAfter: 5)
+          
+        }
+        
     }
     
     //-----------------------------------------
@@ -157,6 +182,8 @@ class ViewController: UIViewController {
       switch result{
         
       case .success(let dynamicConent):
+          
+        print(dynamicConent)
         
         self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 10
         self.augmentedRealityConfiguration.trackingImages = dynamicConent
