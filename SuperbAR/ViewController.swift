@@ -112,6 +112,7 @@ class ViewController: UIViewController {
 //    }
 //    }
 
+    @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var downloadSpinner: UIActivityIndicatorView!{
     didSet{
       downloadSpinner.alpha = 0
@@ -139,6 +140,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func takeScreenshotAction() {
+        print("take screenshot")
         let referenceImage = augmentedRealityView.snapshot()
         outputImageView.image = referenceImage
         
@@ -164,6 +166,10 @@ class ViewController: UIViewController {
         }
         
     }
+    @IBAction func uploadImageAction() {
+        print("upload image")
+        ImageUploader.uploadImage(key: "key")
+    }
     
     //-----------------------------------------
     //MARK:- Dynamic Reference Image Generation
@@ -176,7 +182,7 @@ class ViewController: UIViewController {
     self.contentStackView.subviews[1].isHidden = true
     self.downloadSpinner.alpha = 1
     self.downloadSpinner.startAnimating()
-    self.downloadLabel.text = "Downloading Images From Server"
+    self.downloadLabel.text = "Downloading Images From S3"
 
     ImageDownloader.downloadImagesFromPaths { (result) in
       switch result{
