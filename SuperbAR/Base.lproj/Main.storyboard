@@ -101,7 +101,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Take Image"/>
                                 <connections>
-                                    <action selector="takeScreenshotAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="f1o-pe-20R"/>
+                                    <action selector="takeScreenshotAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="m07-6c-vcT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="le5-KC-hnR">
