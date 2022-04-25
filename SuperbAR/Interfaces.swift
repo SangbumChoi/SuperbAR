@@ -19,3 +19,7 @@ struct Info: Codable {
     let upload_url: String
 }
 
+struct Upload: Codable {
+    let uploadURL: String
+    let Key: String
+}

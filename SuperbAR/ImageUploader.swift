@@ -13,20 +13,15 @@ import Alamofire
 
 
 class ImageUploader{
-    static let vc = ViewController()
-    static let endpoint = "http://some-url"
+    static let endpoint = "https://913kay4rbi.execute-api.ap-northeast-2.amazonaws.com"
     
-    class func uploadImage(key:String){
+    class func uploadImage(key:String, image:UIImage){
         
         // 1. get upload url
         print("get upload url")
-        let paramData = key.data(using: .utf8)
-        let url = URL(string: endpoint + "/assets")
+        let url = URL(string: endpoint + "/uploads")
         var request = URLRequest(url: url!)
-        request.httpMethod = "POST"
-        request.httpBody = paramData
-        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.setValue(String(paramData!.count), forHTTPHeaderField: "Content-Length")
+        request.httpMethod = "GET"
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
             if error != nil {
@@ -34,27 +29,37 @@ class ImageUploader{
                 return
             }
             let safeData = data!
-            let asset = ImageUploader.parseAsset(data: safeData)
-            let uploadUrl = asset!.info[0].upload_url
+            let upload = ImageUploader.parseUpload(data: safeData)!
+            let uploadUrl = upload.uploadURL
+//            let key = upload.Key
             
             // 2. upload image
             print("upload image")
-            let screenshot = vc.outputImageView.image
-            let imageData = screenshot!.jpegData(compressionQuality: 1)!
-            let _ = AF.upload(multipartFormData: { multipartFormData in
-                multipartFormData.append(Data(key.utf8), withName: "key")
-                multipartFormData.append(imageData, withName: "imageData", fileName: key, mimeType: "image/jpg")
-            }, to: uploadUrl)
+            let imageData = image.jpegData(compressionQuality: 1)!
+            print(uploadUrl)
+            print(imageData)
+//            let _ = AF.upload(multipartFormData: { multipartFormData in
+//                multipartFormData.append(imageData, withName: "imageData", fileName: key, mimeType: "image/jpg")
+//            }, to: uploadUrl, method: HTTPMethod.put)
+            AF.upload(imageData, to: uploadUrl, method: HTTPMethod.put)
+                .responseString() { response in
+                    switch response.result {
+                    case .success:
+                        print("done")
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
             
         }
         task.resume()
         
     }
     
-    class func parseAsset(data:Data) -> Asset? {
+    class func parseUpload(data:Data) -> Upload? {
         let decoder = JSONDecoder()
         do{
-            let decodedData = try decoder.decode(Asset.self, from: data)
+            let decodedData = try decoder.decode(Upload.self, from: data)
             return decodedData
         } catch{
             print(error)

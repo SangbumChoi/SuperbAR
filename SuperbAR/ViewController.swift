@@ -168,7 +168,9 @@ class ViewController: UIViewController {
     }
     @IBAction func uploadImageAction() {
         print("upload image")
-        ImageUploader.uploadImage(key: "key")
+        if let image = outputImageView.image{
+            ImageUploader.uploadImage(key: "key", image:image)
+        }
     }
     
     //-----------------------------------------
