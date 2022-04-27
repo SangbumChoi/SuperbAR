@@ -70,21 +70,18 @@ extension ViewController: ARSCNViewDelegate{
 
 extension UILabel{
   
-  /// Updates The Text And Hides It After A Delay
-  ///
-  /// - Parameters:
-  ///   - text: String
-  ///   - delay: Double
-  func showText(_ text: String, andHideAfter delay: Double){
-    
+    /// Updates The Text And Hides It After A Delay
+    ///
+    /// - Parameters:
+    ///   - text: String
+    ///   - delay: Double
+    func showText(_ text: String, andHideAfter delay: Double){
     DispatchQueue.main.async {
-      
-      self.text = text
-      self.alpha = 1
-      UIView.animate(withDuration: delay, animations: { self.alpha = 0 } )
+        self.text = text
+        self.alpha = 1
+        UIView.animate(withDuration: delay, animations: { self.alpha = 0 } )
     }
-    
-  }
+    }
 }
 
 
@@ -113,6 +110,7 @@ class ViewController: UIViewController {
 //    }
 
     @IBOutlet weak var uploadButton: UIButton!
+    
     @IBOutlet weak var downloadSpinner: UIActivityIndicatorView!{
     didSet{
       downloadSpinner.alpha = 0
@@ -129,6 +127,7 @@ class ViewController: UIViewController {
     
     var augmentedRealityConfiguration = ARImageTrackingConfiguration()
     var augmentedRealitySession = ARSession()
+    var referenceImages = Set<ARReferenceImage>()
 
     //---------------------
     //MARK:- View LifeCycle
@@ -136,11 +135,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        outputImageView.isHidden = true
         startARSession()
     }
 
     @IBAction func takeScreenshotAction() {
-        print("take screenshot")
+        outputImageView.isHidden = false
+        
         let referenceImage = augmentedRealityView.snapshot()
         outputImageView.image = referenceImage
         
@@ -148,24 +149,18 @@ class ViewController: UIViewController {
         let ARImage = ARReferenceImage(cgImage, orientation: .up, physicalWidth:  0.1)
         ARImage.name = "Snapshot"
         
-        var referenceImages = Set<ARReferenceImage>()
         referenceImages.insert(ARImage)
         
         self.augmentedRealityConfiguration.trackingImages = referenceImages
         self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
         
-        
         DispatchQueue.main.async {
-          
-          self.downloadSpinner.alpha = 0
-          self.downloadSpinner.stopAnimating()
-          self.contentStackView.subviews[0].isHidden = true
-          self.contentStackView.subviews[1].isHidden = false
-          self.trackingLabel.showText("Images captured Sucesfully", andHideAfter: 5)
-          
+            self.contentStackView.subviews[0].isHidden = true
+            self.contentStackView.subviews[1].isHidden = false
+            self.trackingLabel.showText("Images captured Sucesfully", andHideAfter: 5)
         }
-        
     }
+    
     @IBAction func uploadImageAction() {
         print("upload image")
         if let image = outputImageView.image{
@@ -187,40 +182,32 @@ class ViewController: UIViewController {
     self.downloadLabel.text = "Downloading Images From S3"
 
     ImageDownloader.downloadImagesFromPaths { (result) in
-      switch result{
-        
-      case .success(let dynamicConent):
-          
-        print(dynamicConent)
-        
-        self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 10
-        self.augmentedRealityConfiguration.trackingImages = dynamicConent
-        self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
-        
-        
-        DispatchQueue.main.async {
-          
-          self.downloadSpinner.alpha = 0
-          self.downloadSpinner.stopAnimating()
-          self.contentStackView.subviews[0].isHidden = true
-          self.contentStackView.subviews[1].isHidden = false
-          self.trackingLabel.showText("Images Generated Sucesfully", andHideAfter: 5)
-          
+        switch result{
+            case .success(let dynamicConent):
+                self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 10
+                self.augmentedRealityConfiguration.trackingImages = dynamicConent
+                self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
+
+                DispatchQueue.main.async {
+                    self.downloadSpinner.alpha = 0
+                    self.downloadSpinner.stopAnimating()
+                    self.contentStackView.subviews[0].isHidden = true
+                    self.contentStackView.subviews[1].isHidden = false
+                    self.trackingLabel.showText("Images Generated Sucesfully", andHideAfter: 5)
+                }
+
+            case .failure(let error):
+                print("An Error Occured Generating The Dynamic Reference Images \(error)")
+            }
         }
-       
-      case .failure(let error):
-        print("An Error Occured Generating The Dynamic Reference Images \(error)")
-      }
-    }
     }
 
     //----------------
     //MARK:- ARSession
     //----------------
     func startARSession(){
-
-    augmentedRealityView.session = augmentedRealitySession
-    augmentedRealityView.delegate = self
-    augmentedRealitySession.run(augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
+        augmentedRealityView.session = augmentedRealitySession
+        augmentedRealityView.delegate = self
+        augmentedRealitySession.run(augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
     }
 }
