@@ -42,15 +42,10 @@ struct ReferenceImagePayload{
 }
 
 class ImageDownloader{
-  
+  static let endpoint = "https://913kay4rbi.execute-api.ap-northeast-2.amazonaws.com"
+
   typealias completionHandler = (Result<Set<ARReferenceImage>, Error>) -> ()
   typealias ImageData = (image: UIImage, orientation: CGImagePropertyOrientation, physicalWidth: CGFloat, name: String)
-  
-  static let BASE_PATH = "https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/"
-      
-  static let payloadData: [ReferenceImagePayload] = [
-    ReferenceImagePayload(name: "minion", extensionType: FileSuffix.JPEG.name, orientation: .up, widthInM: 0.1),
-  ]
   
   static var receivedImageData = [ImageData]()
   
@@ -62,51 +57,84 @@ class ImageDownloader{
   ///
   /// - Parameter completion: (Result<[UIImage], Error>)
   class func downloadImagesFromPaths(_ completion: @escaping completionHandler) {
-    
-    let operationQueue = OperationQueue()
-    
-    operationQueue.maxConcurrentOperationCount = 6
-    
-    let completionOperation = BlockOperation {
       
-      OperationQueue.main.addOperation({
-        
-        completion(.success(referenceImageFrom(receivedImageData)))
-        
-      })
-    }
-    
-    payloadData.forEach { (payload) in
-      
-      guard let url = URL(string: BASE_PATH + payload.name + payload.extensionType) else { return }
-      
-      let operation = BlockOperation(block: {
-        
-        do{
+      // 1. get download urls
+      let ep =  endpoint + "/downloads"
+      print(ep)
+      let url = URL(string: ep)
+      var request = URLRequest(url: url!)
+      request.httpMethod = "GET"
+      let session = URLSession.shared
+      let task = session.dataTask(with: request) { (data, response, error) in
+          if error != nil {
+              print(error!)
+              return
+          }
+          let safeData = data!
+          print(safeData)
+          return
+          let download = ImageDownloader.parseDownload(data: safeData)!
+          let downloadURLs = download.downloadURLs;
+          print(downloadURLs)
+          // 2. download images
+          let operationQueue = OperationQueue()
           
-          let imageData = try Data(contentsOf: url)
+          operationQueue.maxConcurrentOperationCount = 6
           
-          if let image = UIImage(data: imageData){
+          let completionOperation = BlockOperation {
             
-            receivedImageData.append(ImageData(image, payload.orientation, payload.widthInM, payload.name))
+            OperationQueue.main.addOperation({
+              
+              completion(.success(referenceImageFrom(receivedImageData)))
+              
+            })
           }
           
-        }catch{
+          downloadURLs.forEach { (downloadURL) in
+            
+            guard let url = URL(string: downloadURL) else { return }
+            
+            let operation = BlockOperation(block: {
+              
+              do{
+                
+                let imageData = try Data(contentsOf: url)
+                
+                if let image = UIImage(data: imageData){
+//                image: UIImage, orientation: CGImagePropertyOrientation, physicalWidth: CGFloat, name: String
+                    
+                    receivedImageData.append(ImageData(image, CGImagePropertyOrientation.up, 0.14, downloadURL))
+                }
+                
+              }catch{
+                
+                completion(.failure(error))
+              }
+              
+            })
+            
+            completionOperation.addDependency(operation)
+            
+          }
           
-          completion(.failure(error))
-        }
-        
-      })
-      
-      completionOperation.addDependency(operation)
-      
-    }
-    
-    operationQueue.addOperations(completionOperation.dependencies, waitUntilFinished: false)
-    operationQueue.addOperation(completionOperation)
-    
+          operationQueue.addOperations(completionOperation.dependencies, waitUntilFinished: false)
+          operationQueue.addOperation(completionOperation)
+          
+      }
+      task.resume()
   }
   
+    class func parseDownload(data:Data) -> Download? {
+        let decoder = JSONDecoder()
+        do{
+            let decodedData = try decoder.decode(Download.self, from: data)
+            return decodedData
+        } catch{
+            print(error)
+            return nil
+        }
+    }
+    
   //-------------------------------------
   //MARK:- Dynamic ARReference Generation
   //-------------------------------------

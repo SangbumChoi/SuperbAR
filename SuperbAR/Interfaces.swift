@@ -9,17 +9,11 @@
 import Foundation
 import UIKit
 
-struct Asset: Codable{
-    let id: String
-    let info: [Info]
-}
-
-struct Info: Codable {
-    let key: String
-    let upload_url: String
-}
-
 struct Upload: Codable {
     let uploadURL: String
     let Key: String
+}
+
+struct Download: Codable {
+    let downloadURLs: [String]
 }
