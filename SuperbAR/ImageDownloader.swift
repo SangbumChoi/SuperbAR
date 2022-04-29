@@ -72,7 +72,7 @@ class ImageDownloader{
           }
           let safeData = data!
           print(safeData)
-          return
+          
           let download = ImageDownloader.parseDownload(data: safeData)!
           let downloadURLs = download.downloadURLs;
           print(downloadURLs)
