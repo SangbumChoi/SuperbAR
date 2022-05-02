@@ -130,15 +130,12 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is SecondViewController{
             guard let vc = segue.destination as? SecondViewController else {return}
-            vc.text = "fuck"
             vc.snapshotImage = augmentedRealityView.snapshot()
         }
     }
 
     @IBAction func takeScreenshotAction(_ sender: Any) {
         let referenceImage = augmentedRealityView.snapshot()
-        print(referenceImage)
-        print("normal")
         
         performSegue(withIdentifier: "FirstToSecond", sender: nil)
                 
@@ -155,14 +152,6 @@ class ViewController: UIViewController {
             self.contentStackView.subviews[0].isHidden = true
             self.contentStackView.subviews[1].isHidden = false
             self.trackingLabel.showText("Images captured Sucesfully", andHideAfter: 5)
-        }
-    }
-    
-    @IBAction func uploadImageAction() {
-        print("upload image")
-
-        if let image = outputImageView.image{
-            ImageUploader.uploadImage(name: "some-name", image:image)
         }
     }
     

@@ -30,7 +30,7 @@ class VideoNode: SCNNode{
     
     //3. If We Have A Valid Name & A Valid Video URL The Instanciate The AVPlayer
     if let targetName = target.name,
-      let validURL = Bundle.main.url(forResource: "black", withExtension: "mp4", subdirectory: nil) {
+      let validURL = Bundle.main.url(forResource: "superb", withExtension: "mp4", subdirectory: nil) {
       videoPlayer = AVPlayer(url: validURL)
       videoPlayer.play()
     }
