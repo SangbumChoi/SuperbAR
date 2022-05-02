@@ -85,7 +85,6 @@ extension UILabel{
 }
 
 
-
 class ViewController: UIViewController {
   
     @IBOutlet weak var contentStackView: UIStackView!{
@@ -94,22 +93,11 @@ class ViewController: UIViewController {
     }
     }
 
-    @IBOutlet weak var outputImageView: UIImageView!
-
     @IBOutlet weak var trackingLabel: UILabel!
 
     @IBOutlet weak var downloadButton: UIButton!
     
     @IBOutlet weak var cameraButton: UIButton!
-//    didSet{
-//      downloadButton.layer.cornerRadius = 10
-//      downloadButton.layer.borderWidth = 2
-//      downloadButton.layer.borderColor = UIColor.white.cgColor
-//      downloadButton.layer.masksToBounds = true
-//    }
-//    }
-
-    @IBOutlet weak var uploadButton: UIButton!
     
     @IBOutlet weak var downloadSpinner: UIActivityIndicatorView!{
     didSet{
@@ -128,6 +116,7 @@ class ViewController: UIViewController {
     var augmentedRealityConfiguration = ARImageTrackingConfiguration()
     var augmentedRealitySession = ARSession()
     var referenceImages = Set<ARReferenceImage>()
+    var delegate : SendData?
 
     //---------------------
     //MARK:- View LifeCycle
@@ -135,16 +124,18 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        outputImageView.isHidden = true
+        // outputImageView.isHidden = true
         startARSession()
     }
+    
 
-    @IBAction func takeScreenshotAction() {
-        outputImageView.isHidden = false
-        
+    @IBAction func takeScreenshotAction(_ sender: Any) {
         let referenceImage = augmentedRealityView.snapshot()
-        outputImageView.image = referenceImage
         
+        delegate?.send(self, Input: "fuck")
+        // self.presentedViewController?.dismiss(animated: true)
+        // svc.snapshotImage = referenceImage
+                
         guard let cgImage = referenceImage.cgImage else { return }
         let ARImage = ARReferenceImage(cgImage, orientation: .up, physicalWidth:  0.1)
         ARImage.name = "Snapshot"
@@ -163,9 +154,9 @@ class ViewController: UIViewController {
     
     @IBAction func uploadImageAction() {
         print("upload image")
-        if let image = outputImageView.image{
-            ImageUploader.uploadImage(key: "key", image:image)
-        }
+//        if let image = outputImageView.image{
+//            ImageUploader.uploadImage(key: "key", image:image)
+//        }
     }
     
     //-----------------------------------------
