@@ -42,7 +42,7 @@ struct ReferenceImagePayload{
 }
 
 class ImageDownloader{
-  static let endpoint = "https://913kay4rbi.execute-api.ap-northeast-2.amazonaws.com"
+  static let endpoint = "https://e1mjfyufih.execute-api.ap-northeast-2.amazonaws.com/dev/assets"
 
   typealias completionHandler = (Result<Set<ARReferenceImage>, Error>) -> ()
   typealias ImageData = (image: UIImage, orientation: CGImagePropertyOrientation, physicalWidth: CGFloat, name: String)
@@ -59,11 +59,10 @@ class ImageDownloader{
   class func downloadImagesFromPaths(_ completion: @escaping completionHandler) {
       
       // 1. get download urls
-      let ep =  endpoint + "/downloads"
-      print(ep)
-      let url = URL(string: ep)
+      let url = URL(string: endpoint)
       var request = URLRequest(url: url!)
       request.httpMethod = "GET"
+      request.setValue("Bearer dGVzdDEyMyE=", forHTTPHeaderField: "Authorization")
       let session = URLSession.shared
       let task = session.dataTask(with: request) { (data, response, error) in
           if error != nil {
@@ -71,11 +70,13 @@ class ImageDownloader{
               return
           }
           let safeData = data!
-          print(safeData)
-          
+          if let json = try? JSONSerialization.jsonObject(with: safeData, options: []) as? [String : Any] {
+              print(json)
+          }
+
           let download = ImageDownloader.parseDownload(data: safeData)!
-          let downloadURLs = download.downloadURLs;
-          print(downloadURLs)
+          let assets = download.assets;
+          
           // 2. download images
           let operationQueue = OperationQueue()
           
@@ -90,9 +91,9 @@ class ImageDownloader{
             })
           }
           
-          downloadURLs.forEach { (downloadURL) in
+          assets.forEach { (asset) in
             
-            guard let url = URL(string: downloadURL) else { return }
+          guard let url = URL(string: asset.anchor_download_url) else { return }
             
             let operation = BlockOperation(block: {
               
@@ -100,10 +101,8 @@ class ImageDownloader{
                 
                 let imageData = try Data(contentsOf: url)
                 
-                if let image = UIImage(data: imageData){
-//                image: UIImage, orientation: CGImagePropertyOrientation, physicalWidth: CGFloat, name: String
-                    
-                    receivedImageData.append(ImageData(image, CGImagePropertyOrientation.up, 0.14, downloadURL))
+                if let image = UIImage(data: imageData){                    
+                    receivedImageData.append(ImageData(image, CGImagePropertyOrientation.up, 0.14, asset.anchor_download_url))
                 }
                 
               }catch{

@@ -9,11 +9,24 @@
 import Foundation
 import UIKit
 
+struct Info: Codable {
+    let name: String
+    let description: String
+    let youtubeUrl: String
+}
+
 struct Upload: Codable {
-    let uploadURL: String
-    let Key: String
+    let id: String
+    let anchor_upload_url: String
 }
 
 struct Download: Codable {
-    let downloadURLs: [String]
+    let assets: [Asset]
+    let last_id: String?
+}
+
+struct Asset: Codable{
+    let id: String
+    let anchor_download_url: String
+    let info: Info?
 }
