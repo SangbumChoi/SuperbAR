@@ -18,7 +18,6 @@ extension ViewController: ARSCNViewDelegate{
   func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
    
     guard let imageAnchor = anchor as? ARImageAnchor, let imageName = imageAnchor.name?.capitalized else { return }
-      
           
     let referenceImage = imageAnchor.referenceImage
     // create a plan that has the same real world height and width as our detected image
@@ -33,13 +32,21 @@ extension ViewController: ARSCNViewDelegate{
     rotate the plane to match.
     */
     planeNode.position.x -= Float(imageAnchor.referenceImage.physicalSize.width)
-      
-    let profileDescriptions = ["minion":"I says) I don't work here",
-                              "ljh":"I says) Alcohol is bad",
-                              "Test":"O says) This is yoosful",
-                              "nts":"O says) Why am I here?"]
+//      if let name = imageAnchor.referenceImage.name {
+//          print("image name: "+name)
+//      }
+    var index = -1
+      for (i, id) in ImageDownloader.assets.map({(value: Asset) -> String? in return value.id}).enumerated(){
+        if imageAnchor.referenceImage.name! == id {
+            index = i
+        }
+    }
 
-    let text = SCNText(string: profileDescriptions[imageAnchor.referenceImage.name!], extrusionDepth: 1)
+    var showText = ""
+  if (index != -1){
+      showText = ImageDownloader.assets[index].info!.description
+  }
+    let text = SCNText(string: showText, extrusionDepth: 1)
     text.font = UIFont (name: "Arial", size: 1)
     text.firstMaterial!.diffuse.contents = UIColor.black
     let textNode = SCNNode(geometry: text)

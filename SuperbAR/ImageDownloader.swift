@@ -48,6 +48,8 @@ class ImageDownloader{
   typealias ImageData = (image: UIImage, orientation: CGImagePropertyOrientation, physicalWidth: CGFloat, name: String)
   
   static var receivedImageData = [ImageData]()
+  static var assets = [Asset]()
+  static var currentImage = -1
   
   //----------------------
   //MARK:- Operation Queue
@@ -70,12 +72,13 @@ class ImageDownloader{
               return
           }
           let safeData = data!
-          if let json = try? JSONSerialization.jsonObject(with: safeData, options: []) as? [String : Any] {
-              print(json)
-          }
+//          if let json = try? JSONSerialization.jsonObject(with: safeData, options: []) as? [String : Any] {
+//              print(json)
+//          }
 
           let download = ImageDownloader.parseDownload(data: safeData)!
-          let assets = download.assets;
+          assets = download.assets;
+//          print(assets.map({(value: Asset) -> Info in return value.info!}))
           
           // 2. download images
           let operationQueue = OperationQueue()
@@ -85,9 +88,8 @@ class ImageDownloader{
           let completionOperation = BlockOperation {
             
             OperationQueue.main.addOperation({
-              
-              completion(.success(referenceImageFrom(receivedImageData)))
-              
+              let ids = assets.map({(value: Asset) -> String? in return value.id})
+              completion(.success(referenceImageFrom(receivedImageData, ids:ids)))
             })
           }
           
@@ -142,19 +144,19 @@ class ImageDownloader{
   ///
   /// - Parameter downloadedData: [ImageData]
   /// - Returns: Set<ARReferenceImage>
-  class func referenceImageFrom(_ downloadedData: [ImageData]) -> Set<ARReferenceImage>{
+    class func referenceImageFrom(_ downloadedData: [ImageData], ids:[String?]) -> Set<ARReferenceImage>{
     
     var referenceImages = Set<ARReferenceImage>()
     
-    downloadedData.forEach {
-      
-      guard let cgImage = $0.image.cgImage else { return }
-      let referenceImage = ARReferenceImage(cgImage, orientation: $0.orientation, physicalWidth: $0.physicalWidth)
-      referenceImage.name = $0.name
-      referenceImages.insert(referenceImage)
-    }
+        downloadedData.enumerated().forEach {
+          
+          guard let cgImage = $1.image.cgImage else { return }
+          let referenceImage = ARReferenceImage(cgImage, orientation: $1.orientation, physicalWidth: $1.physicalWidth)
+          referenceImage.name = ids[$0]
+          referenceImages.insert(referenceImage)
+        }
     
-    return referenceImages
+        return referenceImages
     
   }
   
