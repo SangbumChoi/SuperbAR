@@ -137,7 +137,6 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is SecondViewController{
             guard let vc = segue.destination as? SecondViewController else {return}
-            vc.text = "fuck"
             vc.snapshotImage = augmentedRealityView.snapshot()
         }
     }
@@ -149,28 +148,20 @@ class ViewController: UIViewController {
         
         performSegue(withIdentifier: "FirstToSecond", sender: nil)
                 
-        guard let cgImage = referenceImage.cgImage else { return }
-        let ARImage = ARReferenceImage(cgImage, orientation: .up, physicalWidth:  0.1)
-        ARImage.name = "Snapshot"
-        
-        referenceImages.insert(ARImage)
-        
-        self.augmentedRealityConfiguration.trackingImages = referenceImages
-        self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
-        
-        DispatchQueue.main.async {
-            self.contentStackView.subviews[0].isHidden = true
-            self.contentStackView.subviews[1].isHidden = false
-            self.trackingLabel.showText("Images captured Sucesfully", andHideAfter: 5)
-        }
-    }
-    
-    @IBAction func uploadImageAction() {
-        print("upload image")
-
-        if let image = outputImageView.image{
-            ImageUploader.uploadImage(name: "some-name", image:image)
-        }
+//        guard let cgImage = referenceImage.cgImage else { return }
+//        let ARImage = ARReferenceImage(cgImage, orientation: .up, physicalWidth:  0.1)
+//        ARImage.name = "Snapshot"
+//        
+//        referenceImages.insert(ARImage)
+//        
+//        self.augmentedRealityConfiguration.trackingImages = referenceImages
+//        self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
+//        
+//        DispatchQueue.main.async {
+//            self.contentStackView.subviews[0].isHidden = true
+//            self.contentStackView.subviews[1].isHidden = false
+//            self.trackingLabel.showText("Images captured Sucesfully", andHideAfter: 5)
+//        }
     }
     
     //-----------------------------------------

@@ -243,7 +243,10 @@
                     <tabBarItem key="tabBarItem" title="Item" id="iwB-8I-RwP"/>
                     <navigationItem key="navigationItem" id="MuA-VK-YCX"/>
                     <connections>
+                        <outlet property="describtionField" destination="GjA-ht-38B" id="zUs-fn-OtG"/>
                         <outlet property="imageView" destination="s4F-QO-sVj" id="QvT-Lk-6uy"/>
+                        <outlet property="nameField" destination="tb5-lJ-IJA" id="xJC-F8-X6b"/>
+                        <outlet property="urlField" destination="2hG-y5-gbL" id="Zve-jP-Q9M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FlD-fj-NEN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

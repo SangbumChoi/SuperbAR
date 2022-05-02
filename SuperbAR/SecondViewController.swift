@@ -12,37 +12,43 @@ import UIKit
 class SecondViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var imageView: UIImageView?
     @IBOutlet weak var textLabel: UILabel?
-    @IBOutlet weak var textField: UITextField!{
+    @IBOutlet weak var nameField: UITextField!{
         didSet {
-            textField.delegate = self
+            nameField.delegate = self
+        }
+    }
+    @IBOutlet weak var urlField: UITextField!{
+        didSet {
+            urlField.delegate = self
+        }
+    }
+    @IBOutlet weak var describtionField: UITextField!{
+        didSet {
+            describtionField.delegate = self
         }
     }
     
     var snapshotImage: UIImage? = nil
-    var text: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView?.image = snapshotImage
-        textLabel?.text = text
-        print(snapshotImage)
-        print(text)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+    func textFieldShouldReturn(_ nameField: UITextField, _ urlField: UITextField, _ describtionField: UITextField) -> Bool {
+        nameField.resignFirstResponder()
+        urlField.resignFirstResponder()
+        describtionField.resignFirstResponder()
         return true
     }
     
     @IBAction func uploadImageAction() {
-        print("upload image")
-        print(imageView?.image)
         if let image = imageView!.image{
-            ImageUploader.uploadImage(key: "key", image:image)
+            ImageUploader.uploadImage(name: nameField.text!, image:image, description: describtionField.text!)
         }
     }
 }
