@@ -13,15 +13,24 @@ import Alamofire
 
 
 class ImageUploader{
-    static let endpoint = "https://913kay4rbi.execute-api.ap-northeast-2.amazonaws.com"
+    static let endpoint = "https://e1mjfyufih.execute-api.ap-northeast-2.amazonaws.com/dev/assets"
     
-    class func uploadImage(key:String, image:UIImage){
+    class func uploadImage(name:String, image:UIImage, description:String = "some description", youtubeUrl:String = "some url"){
+        
+        let imageData = image.jpegData(compressionQuality: 1)!
+        var imageSize: Int = imageData.count
+        print(imageSize)
+        
         
         // 1. get upload url
-        print("get upload url")
-        let url = URL(string: endpoint + "/uploads")
+        let url = URL(string: endpoint)
         var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
+        request.httpMethod = "POST"
+        request.setValue("Bearer dGVzdDEyMyE=", forHTTPHeaderField: "Authorization")
+        let json: [String: Any] = ["anchor_size":imageSize,"info": [ "name": name,"description":description, "youtubeUrl":youtubeUrl]]
+
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
             if error != nil {
@@ -29,33 +38,39 @@ class ImageUploader{
                 return
             }
             let safeData = data!
+            
+            let responseJSON = try? JSONSerialization.jsonObject(with: safeData, options: [])
+            
             let upload = ImageUploader.parseUpload(data: safeData)!
-            let uploadUrl = upload.uploadURL
-//            let key = upload.Key
+            let uploadUrl = upload.anchor_upload_url
+            print(uploadUrl)
             
             // 2. upload image
             print("upload image")
-            let imageData = image.jpegData(compressionQuality: 1)!
-            print(uploadUrl)
-            print(imageData)
-//            let _ = AF.upload(multipartFormData: { multipartFormData in
-//                multipartFormData.append(imageData, withName: "imageData", fileName: key, mimeType: "image/jpg")
-//            }, to: uploadUrl, method: HTTPMethod.put)
-            AF.upload(imageData, to: uploadUrl, method: HTTPMethod.put)
-                .responseString() { response in
-                    switch response.result {
-                    case .success:
-                        print("done")
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            
+            let info =
+
+            AF.upload(imageData, to:uploadUrl, method: HTTPMethod.put) //uploadUrlStr: upload url in your case
+                .validate()
+                .responseData(emptyResponseCodes: [200, 204, 205]) { response in
+                    // Process response.
+                    print(response)
+                  }
         }
         task.resume()
         
     }
     
+//    class func serializeUpload(data:Data) ->  {
+//        let encoder = JSONEncoder()
+//        do{
+//            let encodedData = try encoder.encode(data)
+//            return encodedData
+//        } catch{
+//            print(error)
+//            return nil
+//        }
+//    }
+
     class func parseUpload(data:Data) -> Upload? {
         let decoder = JSONDecoder()
         do{
