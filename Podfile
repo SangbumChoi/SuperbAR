@@ -7,6 +7,6 @@ target 'SuperbAR' do
 
   # Pods for SuperbAR
 
-pod “Alamofire”
+pod "Alamofire", "5.6.1"
 
 end
