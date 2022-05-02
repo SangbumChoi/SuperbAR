@@ -16,6 +16,7 @@
 		7F78060228158B1F0069C457 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F78060128158B1F0069C457 /* ImageUploader.swift */; };
 		7F78060428159BBE0069C457 /* Interfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F78060328159BBE0069C457 /* Interfaces.swift */; };
 		7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FABED2E27FC7FCE00B7DA40 /* logo.png */; };
+		B0A0CE6A281D07130003E86B /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CE69281D07130003E86B /* SecondViewController.swift */; };
 		B0F9083E27FDC166008E65F6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */; };
 		B0F9084027FDC407008E65F6 /* VideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9083F27FDC407008E65F6 /* VideoNode.swift */; };
 		E55AB75F436DC852ADB0CFD7 /* Pods_SuperbAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73149BEFF3669693A0D69F7D /* Pods_SuperbAR.framework */; };
@@ -36,6 +37,7 @@
 		7F78060128158B1F0069C457 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		7F78060328159BBE0069C457 /* Interfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interfaces.swift; sourceTree = "<group>"; };
 		7FABED2E27FC7FCE00B7DA40 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		B0A0CE69281D07130003E86B /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		B0F9083F27FDC407008E65F6 /* VideoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				05B5C6502249FA1900B7621A /* AppDelegate.swift */,
+				B0A0CE69281D07130003E86B /* SecondViewController.swift */,
 				05B5C6542249FA1900B7621A /* ViewController.swift */,
 				05B5C65B2249FA1B00B7621A /* LaunchScreen.storyboard */,
 				05B5C6562249FA1900B7621A /* Main.storyboard */,
@@ -227,6 +230,7 @@
 				B0F9083E27FDC166008E65F6 /* ImageDownloader.swift in Sources */,
 				7F78060228158B1F0069C457 /* ImageUploader.swift in Sources */,
 				7F78060428159BBE0069C457 /* Interfaces.swift in Sources */,
+				B0A0CE6A281D07130003E86B /* SecondViewController.swift in Sources */,
 				05B5C6512249FA1900B7621A /* AppDelegate.swift in Sources */,
 				B0F9084027FDC407008E65F6 /* VideoNode.swift in Sources */,
 			);
@@ -381,7 +385,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P5686Q66AD;
 				INFOPLIST_FILE = "$(SRCROOT)/SuperbAR/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -404,7 +408,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P5686Q66AD;
 				INFOPLIST_FILE = "$(SRCROOT)/SuperbAR/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

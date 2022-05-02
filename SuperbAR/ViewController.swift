@@ -85,7 +85,6 @@ extension UILabel{
 }
 
 
-
 class ViewController: UIViewController {
   
     @IBOutlet weak var contentStackView: UIStackView!{
@@ -94,22 +93,11 @@ class ViewController: UIViewController {
     }
     }
 
-    @IBOutlet weak var outputImageView: UIImageView!
-
     @IBOutlet weak var trackingLabel: UILabel!
 
     @IBOutlet weak var downloadButton: UIButton!
     
     @IBOutlet weak var cameraButton: UIButton!
-//    didSet{
-//      downloadButton.layer.cornerRadius = 10
-//      downloadButton.layer.borderWidth = 2
-//      downloadButton.layer.borderColor = UIColor.white.cgColor
-//      downloadButton.layer.masksToBounds = true
-//    }
-//    }
-
-    @IBOutlet weak var uploadButton: UIButton!
     
     @IBOutlet weak var downloadSpinner: UIActivityIndicatorView!{
     didSet{
@@ -135,16 +123,25 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        outputImageView.isHidden = true
+        // outputImageView.isHidden = true
         startARSession()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is SecondViewController{
+            guard let vc = segue.destination as? SecondViewController else {return}
+            vc.text = "fuck"
+            vc.snapshotImage = augmentedRealityView.snapshot()
+        }
+    }
 
-    @IBAction func takeScreenshotAction() {
-        outputImageView.isHidden = false
-        
+    @IBAction func takeScreenshotAction(_ sender: Any) {
         let referenceImage = augmentedRealityView.snapshot()
-        outputImageView.image = referenceImage
+        print(referenceImage)
+        print("normal")
         
+        performSegue(withIdentifier: "FirstToSecond", sender: nil)
+                
         guard let cgImage = referenceImage.cgImage else { return }
         let ARImage = ARReferenceImage(cgImage, orientation: .up, physicalWidth:  0.1)
         ARImage.name = "Snapshot"
@@ -163,6 +160,7 @@ class ViewController: UIViewController {
     
     @IBAction func uploadImageAction() {
         print("upload image")
+
         if let image = outputImageView.image{
             ImageUploader.uploadImage(name: "some-name", image:image)
         }
