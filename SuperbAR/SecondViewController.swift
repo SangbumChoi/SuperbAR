@@ -27,6 +27,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
             describtionField.delegate = self
         }
     }
+    @IBOutlet weak var uploadButton: UIButton!
     
     var snapshotImage: UIImage? = nil
     
@@ -47,6 +48,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func uploadImageAction() {
+        print("Upload")
         if let image = imageView!.image{
             ImageUploader.uploadImage(name: nameField.text!, image:image, description: describtionField.text!)
         }

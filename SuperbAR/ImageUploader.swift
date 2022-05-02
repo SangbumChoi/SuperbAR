@@ -18,7 +18,7 @@ class ImageUploader{
     class func uploadImage(name:String, image:UIImage, description:String = "some description", youtubeUrl:String = "some url"){
         
         let imageData = image.jpegData(compressionQuality: 1)!
-        var imageSize: Int = imageData.count
+        let imageSize: Int = imageData.count
         print(imageSize)
         
         
@@ -39,7 +39,7 @@ class ImageUploader{
             }
             let safeData = data!
             
-            let responseJSON = try? JSONSerialization.jsonObject(with: safeData, options: [])
+//            let responseJSON = try? JSONSerialization.jsonObject(with: safeData, options: [])
             
             let upload = ImageUploader.parseUpload(data: safeData)!
             let uploadUrl = upload.anchor_upload_url
@@ -47,8 +47,6 @@ class ImageUploader{
             
             // 2. upload image
             print("upload image")
-            let info =
-
             AF.upload(imageData, to:uploadUrl, method: HTTPMethod.put) //uploadUrlStr: upload url in your case
                 .validate()
                 .responseData(emptyResponseCodes: [200, 204, 205]) { response in
