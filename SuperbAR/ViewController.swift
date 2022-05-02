@@ -17,7 +17,7 @@ extension ViewController: ARSCNViewDelegate{
   
   func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
    
-    guard let imageAnchor = anchor as? ARImageAnchor, let imageName = imageAnchor.name?.capitalized else { return }
+    guard let imageAnchor = anchor as? ARImageAnchor, let imageId = imageAnchor.name?.capitalized else { return }
           
     let referenceImage = imageAnchor.referenceImage
     // create a plan that has the same real world height and width as our detected image
@@ -35,8 +35,8 @@ extension ViewController: ARSCNViewDelegate{
 //      if let name = imageAnchor.referenceImage.name {
 //          print("image name: "+name)
 //      }
-    
-    let description = ImageDownloader.imageDict[imageName]!.assetInfo.description
+    let image = ImageDownloader.imageDict[imageId.lowercased()]!
+    let description = image.assetInfo.description
 
     let text = SCNText(string: description, extrusionDepth: 1)
     text.font = UIFont (name: "Arial", size: 1)
@@ -52,14 +52,14 @@ extension ViewController: ARSCNViewDelegate{
     textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
 
     // textNode.position.z -= Float(imageAnchor.referenceImage.physicalSize.height)
-    let youtubeUrl = ImageDownloader.imageDict[imageName]!.assetInfo.youtubeUrl
+    let youtubeUrl = image.assetInfo.youtubeUrl
     print("YOUTUBE"+youtubeUrl)
 
 
     textNode.eulerAngles.x = -.pi / 2
     node.addChildNode(textNode)
       
-    trackingLabel.showText("\(imageName) Detected", andHideAfter: 5)
+    trackingLabel.showText("\(image.assetInfo.name) Detected", andHideAfter: 5)
     node.addChildNode(VideoNode(withReferenceImage: imageAnchor.referenceImage))
     
   }
