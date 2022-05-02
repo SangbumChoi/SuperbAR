@@ -116,7 +116,6 @@ class ViewController: UIViewController {
     var augmentedRealityConfiguration = ARImageTrackingConfiguration()
     var augmentedRealitySession = ARSession()
     var referenceImages = Set<ARReferenceImage>()
-    var delegate : SendData?
 
     //---------------------
     //MARK:- View LifeCycle
@@ -128,13 +127,20 @@ class ViewController: UIViewController {
         startARSession()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is SecondViewController{
+            guard let vc = segue.destination as? SecondViewController else {return}
+            vc.text = "fuck"
+            vc.snapshotImage = augmentedRealityView.snapshot()
+        }
+    }
 
     @IBAction func takeScreenshotAction(_ sender: Any) {
         let referenceImage = augmentedRealityView.snapshot()
+        print(referenceImage)
+        print("normal")
         
-        delegate?.send(self, Input: "fuck")
-        // self.presentedViewController?.dismiss(animated: true)
-        // svc.snapshotImage = referenceImage
+        performSegue(withIdentifier: "FirstToSecond", sender: nil)
                 
         guard let cgImage = referenceImage.cgImage else { return }
         let ARImage = ARReferenceImage(cgImage, orientation: .up, physicalWidth:  0.1)
