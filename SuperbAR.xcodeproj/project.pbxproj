@@ -14,7 +14,6 @@
 		05B5C65D2249FA1B00B7621A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C65B2249FA1B00B7621A /* LaunchScreen.storyboard */; };
 		7F78060228158B1F0069C457 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F78060128158B1F0069C457 /* ImageUploader.swift */; };
 		7F78060428159BBE0069C457 /* Interfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F78060328159BBE0069C457 /* Interfaces.swift */; };
-		7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FABED2E27FC7FCE00B7DA40 /* logo.png */; };
 		B0169753282151DC009E87A6 /* ViewController+Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0169752282151DC009E87A6 /* ViewController+Interaction.swift */; };
 		B0169755282151EC009E87A6 /* ViewController+Delegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0169754282151EC009E87A6 /* ViewController+Delegation.swift */; };
 		B016975928215547009E87A6 /* ARCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B016975828215547009E87A6 /* ARCard.swift */; };
@@ -40,7 +39,6 @@
 		73149BEFF3669693A0D69F7D /* Pods_SuperbAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperbAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F78060128158B1F0069C457 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		7F78060328159BBE0069C457 /* Interfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interfaces.swift; sourceTree = "<group>"; };
-		7FABED2E27FC7FCE00B7DA40 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		B0169752282151DC009E87A6 /* ViewController+Interaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Interaction.swift"; sourceTree = "<group>"; };
 		B0169754282151EC009E87A6 /* ViewController+Delegation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Delegation.swift"; sourceTree = "<group>"; };
 		B016975828215547009E87A6 /* ARCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCard.swift; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 				05B5C6562249FA1900B7621A /* Main.storyboard */,
 				05B5C6592249FA1B00B7621A /* Assets.xcassets */,
 				05B5C65E2249FA1B00B7621A /* Info.plist */,
-				7FABED2E27FC7FCE00B7DA40 /* logo.png */,
 				7F78060328159BBE0069C457 /* Interfaces.swift */,
 				7F78060128158B1F0069C457 /* ImageUploader.swift */,
 				B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */,
@@ -209,7 +206,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				05B5C65D2249FA1B00B7621A /* LaunchScreen.storyboard in Resources */,
-				7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */,
 				B016976A282157C3009E87A6 /* art.scnassets in Resources */,
 				05B5C65A2249FA1B00B7621A /* Assets.xcassets in Resources */,
 				05B5C6582249FA1900B7621A /* Main.storyboard in Resources */,

@@ -128,6 +128,31 @@ class ARCard: SCNNode{
 
     }
     
+    /// Sets Up The Base Configuration Of The Business Card & Makes All Elements Invisible To The User
+    func updateBaseConfiguration(firstName: String, surname: String, website: SocialLinkData){
+        
+        //1. Inavalidate The Timer
+        nameTimer?.invalidate()
+        time = 0
+        
+        businessCardTarget.isHidden = true
+        
+        //2. Clear The Name Data
+        self.firstNameText.string = firstName
+        self.surnameText.string = surname
+        // websiteButton.socialLinkData = website
+        
+        //2. Assign The Profile Image & Rotate It So It Is Hidden
+        if cardType == .standard{
+            cardHolderImage.geometry?.firstMaterial?.diffuse.contents = UIImage(named: cardData.firstName + cardData.surname)
+            cardHolderImage.rotation = Flipped_Rotation
+        }
+        
+        //4. Rotate All Our Interactive Buttons So We Cant See Them
+        interactiveButtons.forEach{ $0.rotation = Flipped_Rotation }
+
+    }
+    
     //------------------------------
     //MARK: - Card Element Animation
     //------------------------------

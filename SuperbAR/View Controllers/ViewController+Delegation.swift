@@ -57,9 +57,9 @@ extension ViewController: ARSCNViewDelegate{
             
         //3. Load Our Business Card
         print(referenceImage.name)
-        if let matchedBusinessCardName = referenceImage.name, matchedBusinessCardName == "e2ade859-6474-4b58-86e5-5c2fe0b77f61" && !arCardPlaced{
+        if let _ = referenceImage.name, !arCardPlaced{
             arCardPlaced = true
-//            arCard. = description
+            arCard.updateBaseConfiguration(firstName: description, surname: description, website: SocialLinkData(link: website, type: .Website))
 //            arCard.firstNameText =
             node.addChildNode(arCard)
             arCard.animateBusinessCard()

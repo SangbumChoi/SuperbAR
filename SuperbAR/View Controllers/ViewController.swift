@@ -112,7 +112,7 @@ class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
         ImageDownloader.downloadImagesFromPaths { (result) in
             switch result{
                 case .success(let dynamicConent):
-                    self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 1
+                    self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 5
                     self.augmentedRealityConfiguration.trackingImages = dynamicConent
                     self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
 
@@ -134,9 +134,9 @@ class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
     /// Create A Business Card
     func setupBusinessCard(){
         //1. Create Our Business Card
-        let arCardData = ARCardData(firstName: "Josh",
-                                    surname: "Robbins",
-                                    website: SocialLinkData(link: "https://www.blackmirrorz.tech", type: .Website)
+        let arCardData = ARCardData(firstName: "",
+                                    surname: "",
+                                    website: SocialLinkData(link: "", type: .Website)
         )
         
         //2. Assign It To The Business Card Node
