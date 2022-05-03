@@ -6,7 +6,7 @@ target 'SuperbAR' do
   use_frameworks!
 
   # Pods for SuperbAR
-
-pod "Alamofire", "5.6.1"
+  pod 'SideMenu'
+  pod "Alamofire", "5.6.1"
 
 end

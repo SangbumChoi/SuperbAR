@@ -27,7 +27,7 @@ class ImageUploader{
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.setValue("Bearer dGVzdDEyMyE=", forHTTPHeaderField: "Authorization")
-        let json: [String: Any] = ["anchor_size":imageSize,"info": [ "name": name,"description":description, "youtubeUrl":youtubeUrl]]
+        let json: [String: Any] = ["anchor_size":imageSize,"info": [ "name": name, "description":description, "youtubeUrl":youtubeUrl]]
 
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.httpBody = jsonData
