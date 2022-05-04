@@ -17,7 +17,7 @@ extension ViewController: ARSCNViewDelegate{
   
   func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
    
-    guard let imageAnchor = anchor as? ARImageAnchor, let imageName = imageAnchor.name?.capitalized else { return }
+    guard let imageAnchor = anchor as? ARImageAnchor, let imageId = imageAnchor.name?.capitalized else { return }
           
     let referenceImage = imageAnchor.referenceImage
     // create a plan that has the same real world height and width as our detected image
@@ -35,18 +35,10 @@ extension ViewController: ARSCNViewDelegate{
 //      if let name = imageAnchor.referenceImage.name {
 //          print("image name: "+name)
 //      }
-    var index = -1
-      for (i, id) in ImageDownloader.assets.map({(value: Asset) -> String? in return value.id}).enumerated(){
-        if imageAnchor.referenceImage.name! == id {
-            index = i
-        }
-    }
+    let image = ImageDownloader.imageDict[imageId.lowercased()]!
+    let description = image.assetInfo.description
 
-    var showText = ""
-  if (index != -1){
-      showText = ImageDownloader.assets[index].info!.description
-  }
-    let text = SCNText(string: showText, extrusionDepth: 1)
+    let text = SCNText(string: description, extrusionDepth: 1)
     text.font = UIFont (name: "Arial", size: 1)
     text.firstMaterial!.diffuse.contents = UIColor.black
     let textNode = SCNNode(geometry: text)
@@ -60,11 +52,14 @@ extension ViewController: ARSCNViewDelegate{
     textNode.scale = SCNVector3(fontScale, fontScale, fontScale)
 
     // textNode.position.z -= Float(imageAnchor.referenceImage.physicalSize.height)
+    let youtubeUrl = image.assetInfo.youtubeUrl
+    print("YOUTUBE"+youtubeUrl)
+
 
     textNode.eulerAngles.x = -.pi / 2
     node.addChildNode(textNode)
       
-    trackingLabel.showText("\(imageName) Detected", andHideAfter: 5)
+    trackingLabel.showText("\(image.assetInfo.name) Detected", andHideAfter: 5)
     node.addChildNode(VideoNode(withReferenceImage: imageAnchor.referenceImage))
     
   }
@@ -171,29 +166,32 @@ class ViewController: UIViewController {
     /// Downloads Our Images From The Server And Initializes Our ARSession
     @IBAction func  generateImagesFromServer(){
 
-    self.contentStackView.subviews[0].isHidden = false
-    self.contentStackView.subviews[1].isHidden = true
-    self.downloadSpinner.alpha = 1
-    self.downloadSpinner.startAnimating()
-    self.downloadLabel.text = "Downloading Images From S3"
+        self.contentStackView.subviews[0].isHidden = false
+        self.contentStackView.subviews[1].isHidden = true
+        self.downloadSpinner.alpha = 1
+        self.downloadSpinner.startAnimating()
+        self.downloadLabel.text = "Downloading Images From S3"
 
-    ImageDownloader.downloadImagesFromPaths { (result) in
-        switch result{
-            case .success(let dynamicConent):
-                self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 10
-                self.augmentedRealityConfiguration.trackingImages = dynamicConent
-                self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
+        ImageDownloader.receivedImageData.removeAll()
+        ImageDownloader.imageDict.removeAll()
+    
+        ImageDownloader.downloadImagesFromPaths { (result) in
+            switch result{
+                case .success(let dynamicConent):
+                    self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 10
+                    self.augmentedRealityConfiguration.trackingImages = dynamicConent
+                    self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
 
-                DispatchQueue.main.async {
-                    self.downloadSpinner.alpha = 0
-                    self.downloadSpinner.stopAnimating()
-                    self.contentStackView.subviews[0].isHidden = true
-                    self.contentStackView.subviews[1].isHidden = false
-                    self.trackingLabel.showText("Images Generated Sucesfully", andHideAfter: 5)
-                }
+                    DispatchQueue.main.async {
+                        self.downloadSpinner.alpha = 0
+                        self.downloadSpinner.stopAnimating()
+                        self.contentStackView.subviews[0].isHidden = true
+                        self.contentStackView.subviews[1].isHidden = false
+                        self.trackingLabel.showText(String(ImageDownloader.imageDict.keys.count) + " Images Downloaded Successfully", andHideAfter: 5)
+                    }
 
-            case .failure(let error):
-                print("An Error Occured Generating The Dynamic Reference Images \(error)")
+                case .failure(let error):
+                    print("An Error Occured While Downloading Images \(error)")
             }
         }
     }

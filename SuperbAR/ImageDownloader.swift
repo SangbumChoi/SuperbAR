@@ -45,11 +45,11 @@ class ImageDownloader{
   static let endpoint = "https://e1mjfyufih.execute-api.ap-northeast-2.amazonaws.com/dev/assets"
 
   typealias completionHandler = (Result<Set<ARReferenceImage>, Error>) -> ()
-  typealias ImageData = (image: UIImage, orientation: CGImagePropertyOrientation, physicalWidth: CGFloat, name: String)
-  
+  typealias ImageData = (image: UIImage, orientation: CGImagePropertyOrientation, physicalWidth: CGFloat, name: String, id: String)
+  typealias Image = (imageData: ImageData?, assetInfo:Info)
+
+  static var imageDict: [String:Image] = [String: Image]()
   static var receivedImageData = [ImageData]()
-  static var assets = [Asset]()
-  static var currentImage = -1
   
   //----------------------
   //MARK:- Operation Queue
@@ -60,6 +60,9 @@ class ImageDownloader{
   /// - Parameter completion: (Result<[UIImage], Error>)
   class func downloadImagesFromPaths(_ completion: @escaping completionHandler) {
       
+//      print(imageDict.keys.count)
+//      print(receivedImageData.count)
+//
       // 1. get download urls
       let url = URL(string: endpoint)
       var request = URLRequest(url: url!)
@@ -72,13 +75,11 @@ class ImageDownloader{
               return
           }
           let safeData = data!
-//          if let json = try? JSONSerialization.jsonObject(with: safeData, options: []) as? [String : Any] {
-//              print(json)
-//          }
-
           let download = ImageDownloader.parseDownload(data: safeData)!
-          assets = download.assets;
-//          print(assets.map({(value: Asset) -> Info in return value.info!}))
+          let assets = download.assets;
+          for asset in assets{
+              imageDict[asset.id] = Image(imageData:nil, assetInfo:asset.info!)
+          }
           
           // 2. download images
           let operationQueue = OperationQueue()
@@ -88,8 +89,7 @@ class ImageDownloader{
           let completionOperation = BlockOperation {
             
             OperationQueue.main.addOperation({
-              let ids = assets.map({(value: Asset) -> String? in return value.id})
-              completion(.success(referenceImageFrom(receivedImageData, ids:ids)))
+              completion(.success(referenceImageFrom(receivedImageData)))
             })
           }
           
@@ -102,9 +102,10 @@ class ImageDownloader{
               do{
                 
                 let imageData = try Data(contentsOf: url)
-                
-                if let image = UIImage(data: imageData){                    
-                    receivedImageData.append(ImageData(image, CGImagePropertyOrientation.up, 0.14, asset.anchor_download_url))
+                if let image = UIImage(data: imageData){
+                    let imageData = ImageData(image, CGImagePropertyOrientation.up, 0.14, asset.anchor_download_url, asset.id)
+                    receivedImageData.append(imageData)
+                    imageDict[asset.id]!.imageData = imageData
                 }
                 
               }catch{
@@ -144,20 +145,20 @@ class ImageDownloader{
   ///
   /// - Parameter downloadedData: [ImageData]
   /// - Returns: Set<ARReferenceImage>
-    class func referenceImageFrom(_ downloadedData: [ImageData], ids:[String?]) -> Set<ARReferenceImage>{
+    class func referenceImageFrom(_ downloadedData: [ImageData]) -> Set<ARReferenceImage>{
     
-    var referenceImages = Set<ARReferenceImage>()
-    
-        downloadedData.enumerated().forEach {
+        var referenceImages = Set<ARReferenceImage>()
+        
+        downloadedData.enumerated().forEach { (index, imageData) in
           
-          guard let cgImage = $1.image.cgImage else { return }
-          let referenceImage = ARReferenceImage(cgImage, orientation: $1.orientation, physicalWidth: $1.physicalWidth)
-          referenceImage.name = ids[$0]
+          guard let cgImage = imageData.image.cgImage else { return }
+          let referenceImage = ARReferenceImage(cgImage, orientation: imageData.orientation, physicalWidth: imageData.physicalWidth)
+          referenceImage.name = imageData.id
           referenceImages.insert(referenceImage)
         }
-    
+
         return referenceImages
-    
-  }
+        
+    }
   
 }
