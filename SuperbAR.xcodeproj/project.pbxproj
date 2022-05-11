@@ -12,10 +12,14 @@
 		05B5C6582249FA1900B7621A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6562249FA1900B7621A /* Main.storyboard */; };
 		05B5C65A2249FA1B00B7621A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6592249FA1B00B7621A /* Assets.xcassets */; };
 		05B5C65D2249FA1B00B7621A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C65B2249FA1B00B7621A /* LaunchScreen.storyboard */; };
-		05B5C6652249FB8700B7621A /* black.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 05B5C6642249FB8700B7621A /* black.mp4 */; };
 		7F78060228158B1F0069C457 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F78060128158B1F0069C457 /* ImageUploader.swift */; };
 		7F78060428159BBE0069C457 /* Interfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F78060328159BBE0069C457 /* Interfaces.swift */; };
-		7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FABED2E27FC7FCE00B7DA40 /* logo.png */; };
+		B0169753282151DC009E87A6 /* ViewController+Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0169752282151DC009E87A6 /* ViewController+Interaction.swift */; };
+		B0169755282151EC009E87A6 /* ViewController+Delegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0169754282151EC009E87A6 /* ViewController+Delegation.swift */; };
+		B016975928215547009E87A6 /* ARCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B016975828215547009E87A6 /* ARCard.swift */; };
+		B016975B28215555009E87A6 /* ARCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B016975A28215555009E87A6 /* ARCardData.swift */; };
+		B016976A282157C3009E87A6 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = B0169769282157C3009E87A6 /* art.scnassets */; };
+		B016976D28216358009E87A6 /* MapWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B016976C28216358009E87A6 /* MapWebViewController.swift */; };
 		B0A0CE6A281D07130003E86B /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CE69281D07130003E86B /* SecondViewController.swift */; };
 		B0F9083E27FDC166008E65F6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */; };
 		B0F9084027FDC407008E65F6 /* VideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9083F27FDC407008E65F6 /* VideoNode.swift */; };
@@ -30,13 +34,17 @@
 		05B5C6592249FA1B00B7621A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		05B5C65C2249FA1B00B7621A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		05B5C65E2249FA1B00B7621A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		05B5C6642249FB8700B7621A /* black.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = black.mp4; sourceTree = "<group>"; };
 		5F6872E8B64502FDF131F68C /* Pods-SuperbAR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperbAR.debug.xcconfig"; path = "Target Support Files/Pods-SuperbAR/Pods-SuperbAR.debug.xcconfig"; sourceTree = "<group>"; };
 		6D9C41B4792D9423DFDCAF8A /* Pods-SuperbAR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperbAR.release.xcconfig"; path = "Target Support Files/Pods-SuperbAR/Pods-SuperbAR.release.xcconfig"; sourceTree = "<group>"; };
 		73149BEFF3669693A0D69F7D /* Pods_SuperbAR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperbAR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F78060128158B1F0069C457 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		7F78060328159BBE0069C457 /* Interfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interfaces.swift; sourceTree = "<group>"; };
-		7FABED2E27FC7FCE00B7DA40 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		B0169752282151DC009E87A6 /* ViewController+Interaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Interaction.swift"; sourceTree = "<group>"; };
+		B0169754282151EC009E87A6 /* ViewController+Delegation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Delegation.swift"; sourceTree = "<group>"; };
+		B016975828215547009E87A6 /* ARCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCard.swift; sourceTree = "<group>"; };
+		B016975A28215555009E87A6 /* ARCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCardData.swift; sourceTree = "<group>"; };
+		B0169769282157C3009E87A6 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		B016976C28216358009E87A6 /* MapWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWebViewController.swift; sourceTree = "<group>"; };
 		B0A0CE69281D07130003E86B /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		B0F9083F27FDC407008E65F6 /* VideoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNode.swift; sourceTree = "<group>"; };
@@ -75,15 +83,14 @@
 		05B5C64F2249FA1900B7621A /* SuperbAR */ = {
 			isa = PBXGroup;
 			children = (
+				B0169769282157C3009E87A6 /* art.scnassets */,
+				B016975728215538009E87A6 /* ARCard */,
+				B0169751282151B7009E87A6 /* View Controllers */,
 				05B5C6502249FA1900B7621A /* AppDelegate.swift */,
-				B0A0CE69281D07130003E86B /* SecondViewController.swift */,
-				05B5C6542249FA1900B7621A /* ViewController.swift */,
 				05B5C65B2249FA1B00B7621A /* LaunchScreen.storyboard */,
 				05B5C6562249FA1900B7621A /* Main.storyboard */,
 				05B5C6592249FA1B00B7621A /* Assets.xcassets */,
 				05B5C65E2249FA1B00B7621A /* Info.plist */,
-				05B5C6642249FB8700B7621A /* black.mp4 */,
-				7FABED2E27FC7FCE00B7DA40 /* logo.png */,
 				7F78060328159BBE0069C457 /* Interfaces.swift */,
 				7F78060128158B1F0069C457 /* ImageUploader.swift */,
 				B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */,
@@ -98,6 +105,35 @@
 				73149BEFF3669693A0D69F7D /* Pods_SuperbAR.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B0169751282151B7009E87A6 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B016976B2821633D009E87A6 /* WebView & Maps */,
+				B0A0CE69281D07130003E86B /* SecondViewController.swift */,
+				05B5C6542249FA1900B7621A /* ViewController.swift */,
+				B0169752282151DC009E87A6 /* ViewController+Interaction.swift */,
+				B0169754282151EC009E87A6 /* ViewController+Delegation.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		B016975728215538009E87A6 /* ARCard */ = {
+			isa = PBXGroup;
+			children = (
+				B016975828215547009E87A6 /* ARCard.swift */,
+				B016975A28215555009E87A6 /* ARCardData.swift */,
+			);
+			path = ARCard;
+			sourceTree = "<group>";
+		};
+		B016976B2821633D009E87A6 /* WebView & Maps */ = {
+			isa = PBXGroup;
+			children = (
+				B016976C28216358009E87A6 /* MapWebViewController.swift */,
+			);
+			path = "WebView & Maps";
 			sourceTree = "<group>";
 		};
 		BCA35D3ECACDB058EE9ED618 /* Pods */ = {
@@ -170,8 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05B5C65D2249FA1B00B7621A /* LaunchScreen.storyboard in Resources */,
-				7FABED2F27FC7FCE00B7DA40 /* logo.png in Resources */,
-				05B5C6652249FB8700B7621A /* black.mp4 in Resources */,
+				B016976A282157C3009E87A6 /* art.scnassets in Resources */,
 				05B5C65A2249FA1B00B7621A /* Assets.xcassets in Resources */,
 				05B5C6582249FA1900B7621A /* Main.storyboard in Resources */,
 			);
@@ -227,12 +262,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				05B5C6552249FA1900B7621A /* ViewController.swift in Sources */,
+				B0169755282151EC009E87A6 /* ViewController+Delegation.swift in Sources */,
 				B0F9083E27FDC166008E65F6 /* ImageDownloader.swift in Sources */,
+				B0169753282151DC009E87A6 /* ViewController+Interaction.swift in Sources */,
+				B016976D28216358009E87A6 /* MapWebViewController.swift in Sources */,
 				7F78060228158B1F0069C457 /* ImageUploader.swift in Sources */,
 				7F78060428159BBE0069C457 /* Interfaces.swift in Sources */,
+				B016975928215547009E87A6 /* ARCard.swift in Sources */,
 				B0A0CE6A281D07130003E86B /* SecondViewController.swift in Sources */,
 				05B5C6512249FA1900B7621A /* AppDelegate.swift in Sources */,
 				B0F9084027FDC407008E65F6 /* VideoNode.swift in Sources */,
+				B016975B28215555009E87A6 /* ARCardData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

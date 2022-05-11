@@ -33,12 +33,10 @@ enum FileSuffix {
 
 /// Constructor For Generating Dynamic Reference Images
 struct ReferenceImagePayload{
-  
-  var name: String
-  var extensionType: String
-  var orientation: CGImagePropertyOrientation
-  var widthInM: CGFloat
-  
+    var name: String
+    var extensionType: String
+    var orientation: CGImagePropertyOrientation
+    var widthInM: CGFloat
 }
 
 class ImageDownloader{
@@ -104,6 +102,7 @@ class ImageDownloader{
                 let imageData = try Data(contentsOf: url)
                 if let image = UIImage(data: imageData){
                     let imageData = ImageData(image, CGImagePropertyOrientation.up, 0.14, asset.anchor_download_url, asset.id)
+                    print(imageData)
                     receivedImageData.append(imageData)
                     imageDict[asset.id]!.imageData = imageData
                 }
@@ -146,19 +145,13 @@ class ImageDownloader{
   /// - Parameter downloadedData: [ImageData]
   /// - Returns: Set<ARReferenceImage>
     class func referenceImageFrom(_ downloadedData: [ImageData]) -> Set<ARReferenceImage>{
-    
-        var referenceImages = Set<ARReferenceImage>()
-        
-        downloadedData.enumerated().forEach { (index, imageData) in
-          
-          guard let cgImage = imageData.image.cgImage else { return }
-          let referenceImage = ARReferenceImage(cgImage, orientation: imageData.orientation, physicalWidth: imageData.physicalWidth)
-          referenceImage.name = imageData.id
-          referenceImages.insert(referenceImage)
+    var referenceImages = Set<ARReferenceImage>()
+    downloadedData.enumerated().forEach { (index, imageData) in
+        guard let cgImage = imageData.image.cgImage else { return }
+        let referenceImage = ARReferenceImage(cgImage, orientation: imageData.orientation, physicalWidth: imageData.physicalWidth)
+        referenceImage.name = imageData.id
+        referenceImages.insert(referenceImage)
         }
-
-        return referenceImages
-        
+    return referenceImages
     }
-  
 }
