@@ -50,7 +50,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     @IBAction func uploadImageAction() {
         print("Upload")
         if let image = imageView!.image{
-            ImageUploader.uploadImage(name: nameField.text!, image:image, description: describtionField.text!)
+            ImageUploader.uploadImage(name: nameField.text!, image:image, description: describtionField.text!, youtubeUrl: urlField.text!)
         }
     }
 }

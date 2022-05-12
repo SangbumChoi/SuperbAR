@@ -102,7 +102,6 @@ class ImageDownloader{
                 let imageData = try Data(contentsOf: url)
                 if let image = UIImage(data: imageData){
                     let imageData = ImageData(image, CGImagePropertyOrientation.up, 0.14, asset.anchor_download_url, asset.id)
-                    print(imageData)
                     receivedImageData.append(imageData)
                     imageDict[asset.id]!.imageData = imageData
                 }
