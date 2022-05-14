@@ -93,12 +93,10 @@ class ImageDownloader{
           
           assets.forEach { (asset) in
             
-          guard let url = URL(string: asset.anchor_download_url) else { return }
-            
+            guard let url = URL(string: asset.anchor_download_url) else { return }
             let operation = BlockOperation(block: {
               
               do{
-                
                 let imageData = try Data(contentsOf: url)
                 if let image = UIImage(data: imageData){
                     let imageData = ImageData(image, CGImagePropertyOrientation.up, 0.14, asset.anchor_download_url, asset.id)
@@ -107,16 +105,13 @@ class ImageDownloader{
                 }
                 
               }catch{
-                
                 completion(.failure(error))
               }
               
             })
-            
             completionOperation.addDependency(operation)
             
           }
-          
           operationQueue.addOperations(completionOperation.dependencies, waitUntilFinished: false)
           operationQueue.addOperation(completionOperation)
           
@@ -125,6 +120,7 @@ class ImageDownloader{
   }
   
     class func parseDownload(data:Data) -> Download? {
+        print("download")
         let decoder = JSONDecoder()
         do{
             let decodedData = try decoder.decode(Download.self, from: data)
@@ -144,13 +140,20 @@ class ImageDownloader{
   /// - Parameter downloadedData: [ImageData]
   /// - Returns: Set<ARReferenceImage>
     class func referenceImageFrom(_ downloadedData: [ImageData]) -> Set<ARReferenceImage>{
-    var referenceImages = Set<ARReferenceImage>()
-    downloadedData.enumerated().forEach { (index, imageData) in
-        guard let cgImage = imageData.image.cgImage else { return }
-        let referenceImage = ARReferenceImage(cgImage, orientation: imageData.orientation, physicalWidth: imageData.physicalWidth)
-        referenceImage.name = imageData.id
-        referenceImages.insert(referenceImage)
+        var referenceImages = Set<ARReferenceImage>()
+        for imageData in downloadedData {
+            guard let cgImage = imageData.image.cgImage else { continue }
+            let referenceImage = ARReferenceImage(cgImage, orientation: imageData.orientation, physicalWidth: imageData.physicalWidth)
+            referenceImage.validate(completionHandler: { error in
+                if error == nil {
+                    referenceImage.name = imageData.id
+                    referenceImages.insert(referenceImage)
+                }
+                else{
+                    print("ignore invalid image "+imageData.id)
+                }
+            })
         }
-    return referenceImages
+        return referenceImages
     }
 }
