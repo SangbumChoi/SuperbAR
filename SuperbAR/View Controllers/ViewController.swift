@@ -76,7 +76,7 @@ class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
             vc.snapshotImage = augmentedRealityView.snapshot()
         }
         
-        if segue.identifier == "webViewr",
+        if segue.identifier == "webViewer",
            let sideMenu = segue.destination as? SideMenuNavigationController,
            let mapWebView = sideMenu.children.first as? MapWebViewController{
            
