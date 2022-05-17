@@ -183,7 +183,7 @@
         <scene sceneID="ciK-Qa-2Pd">
             <objects>
                 <viewController id="D3k-H3-oWs" customClass="MapWebViewController" customModule="SuperbAR" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WGJ-pJ-zBb" customClass="MabW">
+                    <view key="view" contentMode="scaleToFill" id="WGJ-pJ-zBb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="QcK-dc-wYE"/>
@@ -193,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hB1-AE-FOw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-538" y="1630"/>
+            <point key="canvasLocation" x="-1433" y="1630"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="rcd-Xg-aeV">
@@ -210,7 +210,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="no0-WO-hH1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1433" y="1630"/>
+            <point key="canvasLocation" x="-2520" y="1630"/>
         </scene>
     </scenes>
     <resources>

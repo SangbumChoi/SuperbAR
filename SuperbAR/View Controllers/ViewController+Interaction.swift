@@ -33,5 +33,7 @@ extension ViewController{
     }
     
     /// Loads One Of The Website From Business Card
-    func displayWebSite() { self.performSegue(withIdentifier: "webViewer", sender: nil) }
+    func displayWebSite() {
+        self.performSegue(withIdentifier: "webViewer", sender: nil)
+    }
 }

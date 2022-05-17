@@ -66,6 +66,5 @@ extension ViewController: ARSCNViewDelegate{
             targetAnchor = imageAnchor
             
         }
-        print(arCard)
     }
 }

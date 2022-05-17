@@ -20,6 +20,7 @@
 		B016975B28215555009E87A6 /* ARCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B016975A28215555009E87A6 /* ARCardData.swift */; };
 		B016976A282157C3009E87A6 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = B0169769282157C3009E87A6 /* art.scnassets */; };
 		B016976D28216358009E87A6 /* MapWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B016976C28216358009E87A6 /* MapWebViewController.swift */; };
+		B0213FD22833D1A0004F5363 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0213FD12833D1A0004F5363 /* WebKit.framework */; };
 		B0A0CE6A281D07130003E86B /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CE69281D07130003E86B /* SecondViewController.swift */; };
 		B0F9083E27FDC166008E65F6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */; };
 		B0F9084027FDC407008E65F6 /* VideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F9083F27FDC407008E65F6 /* VideoNode.swift */; };
@@ -45,6 +46,7 @@
 		B016975A28215555009E87A6 /* ARCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCardData.swift; sourceTree = "<group>"; };
 		B0169769282157C3009E87A6 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		B016976C28216358009E87A6 /* MapWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWebViewController.swift; sourceTree = "<group>"; };
+		B0213FD12833D1A0004F5363 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		B0A0CE69281D07130003E86B /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		B0F9083D27FDC166008E65F6 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		B0F9083F27FDC407008E65F6 /* VideoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNode.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0213FD22833D1A0004F5363 /* WebKit.framework in Frameworks */,
 				E55AB75F436DC852ADB0CFD7 /* Pods_SuperbAR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +105,7 @@
 		76888E82F6A2B3B308E93CE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B0213FD12833D1A0004F5363 /* WebKit.framework */,
 				73149BEFF3669693A0D69F7D /* Pods_SuperbAR.framework */,
 			);
 			name = Frameworks;
