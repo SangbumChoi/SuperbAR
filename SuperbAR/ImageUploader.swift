@@ -19,7 +19,6 @@ class ImageUploader{
         
         let imageData = image.jpegData(compressionQuality: 1)!
         let imageSize: Int = imageData.count
-        print(imageSize)
         
         
         // 1. get upload url
@@ -43,10 +42,8 @@ class ImageUploader{
             
             let upload = ImageUploader.parseUpload(data: safeData)!
             let uploadUrl = upload.anchor_upload_url
-            print(uploadUrl)
-            
+
             // 2. upload image
-            print("upload image")
             AF.upload(imageData, to:uploadUrl, method: HTTPMethod.put) //uploadUrlStr: upload url in your case
                 .validate()
                 .responseData(emptyResponseCodes: [200, 204, 205]) { response in

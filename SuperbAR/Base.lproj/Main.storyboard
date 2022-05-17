@@ -183,7 +183,7 @@
         <scene sceneID="ciK-Qa-2Pd">
             <objects>
                 <viewController id="D3k-H3-oWs" customClass="MapWebViewController" customModule="SuperbAR" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WGJ-pJ-zBb">
+                    <view key="view" contentMode="scaleToFill" id="WGJ-pJ-zBb" customClass="MabW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="QcK-dc-wYE"/>
