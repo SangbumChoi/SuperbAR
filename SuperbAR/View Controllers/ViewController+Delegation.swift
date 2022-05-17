@@ -52,19 +52,20 @@ extension ViewController: ARSCNViewDelegate{
         //2. Get The Detected Reference Image
         let referenceImage = imageAnchor.referenceImage
         let image = ImageDownloader.imageDict[imageId.lowercased()]!
+        let name = image.assetInfo.name
         let description = image.assetInfo.description
         let website = image.assetInfo.youtubeUrl
             
         //3. Load Our Business Card
-        print(referenceImage.name)
+        print(website)
         if let _ = referenceImage.name, !arCardPlaced{
             arCardPlaced = true
-            arCard.updateBaseConfiguration(firstName: description, surname: description, website: SocialLinkData(link: website, type: .Website))
-//            arCard.firstNameText =
+            arCard.updateBaseConfiguration(firstName: name, surname: description, website: SocialLinkData(link: website, type: .Website))
             node.addChildNode(arCard)
             arCard.animateBusinessCard()
             targetAnchor = imageAnchor
             
         }
+        print(arCard)
     }
 }

@@ -15,7 +15,7 @@ import Alamofire
 class ImageUploader{
     static let endpoint = "https://e1mjfyufih.execute-api.ap-northeast-2.amazonaws.com/dev/assets"
     
-    class func uploadImage(name:String, image:UIImage, description:String = "some description", youtubeUrl:String = "some url"){
+    class func uploadImage(name:String, image:UIImage, description:String = "some description", youtubeUrl:String = "https://www.youtube.com/watch?v=c2TN6AbHttY"){
         
         let imageData = image.jpegData(compressionQuality: 1)!
         let imageSize: Int = imageData.count
