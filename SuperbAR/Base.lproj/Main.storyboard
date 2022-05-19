@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,6 +42,11 @@
                                     <action selector="takeScreenshotAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lOi-FF-JD3"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="G9o-BK-mZk">
+                                <rect key="frame" x="167.07692307692287" y="75.999999999999886" width="76" height="75.999999999999886"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" systemColor="opaqueSeparatorColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -62,6 +67,7 @@
                     <navigationItem key="navigationItem" id="m5Y-LP-hlH"/>
                     <connections>
                         <outlet property="augmentedRealityView" destination="uiK-Tv-qbG" id="UZh-0F-Rvc"/>
+                        <outlet property="spinner" destination="G9o-BK-mZk" id="7f9-Df-jJg"/>
                         <segue destination="IuA-ob-Yge" kind="show" identifier="FirstToSecond" id="bsf-7Y-VW4"/>
                         <segue destination="bod-DP-1ap" kind="show" identifier="webViewer" id="h2i-8D-Wfx"/>
                     </connections>
@@ -132,8 +138,13 @@
                                 </connections>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s4F-QO-sVj">
-                                <rect key="frame" x="93" y="132" width="229" height="291"/>
+                                <rect key="frame" x="93" y="88" width="229" height="335"/>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ysx-dQ-fp8">
+                                <rect key="frame" x="169" y="383" width="76" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                <color key="color" systemColor="opaqueSeparatorColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zpM-kB-n77"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -172,6 +183,7 @@
                         <outlet property="describtionField" destination="GjA-ht-38B" id="zUs-fn-OtG"/>
                         <outlet property="imageView" destination="s4F-QO-sVj" id="QvT-Lk-6uy"/>
                         <outlet property="nameField" destination="tb5-lJ-IJA" id="xJC-F8-X6b"/>
+                        <outlet property="spinner" destination="ysx-dQ-fp8" id="hhy-Wq-asn"/>
                         <outlet property="urlField" destination="2hG-y5-gbL" id="Zve-jP-Q9M"/>
                     </connections>
                 </viewController>
@@ -217,6 +229,9 @@
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

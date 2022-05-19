@@ -120,7 +120,6 @@ class ImageDownloader{
   }
   
     class func parseDownload(data:Data) -> Download? {
-        print("download")
         let decoder = JSONDecoder()
         do{
             let decodedData = try decoder.decode(Download.self, from: data)
