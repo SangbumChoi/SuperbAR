@@ -13,30 +13,15 @@ import Foundation
 import SideMenu
 
 
-//------------------------
-//MARK:- Making UILabel custom function
-//------------------------
-
-extension UILabel{
-  
-    /// Updates The Text And Hides It After A Delay
-    ///
-    /// - Parameters:
-    ///   - text: String
-    ///   - delay: Double
-    func showText(_ text: String, andHideAfter delay: Double){
-    DispatchQueue.main.async {
-        self.text = text
-        self.alpha = 1
-        UIView.animate(withDuration: delay, animations: { self.alpha = 0 } )
-    }
-    }
-}
-
-
 class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    func showSpinner(){
+        self.spinner.startAnimating()
+    }
+    func hideSpinner(){
+        self.spinner.stopAnimating()
+    }
     @IBOutlet weak var augmentedRealityView: ARSCNView!
-    
     var augmentedRealityConfiguration = ARImageTrackingConfiguration()
     var augmentedRealitySession = ARSession()
     var referenceImages = Set<ARReferenceImage>()
@@ -102,10 +87,11 @@ class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
     //-----------------------------------------
     //MARK:- Dynamic Reference Image Generation
     //-----------------------------------------
-  
+    
     /// Downloads Our Images From The Server And Initializes Our ARSession
     @IBAction func  generateImagesFromServer(){
-
+        self.showSpinner()
+        print("download start")
         ImageDownloader.receivedImageData.removeAll()
         ImageDownloader.imageDict.removeAll()
     
@@ -115,9 +101,13 @@ class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
                     self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 5
                     self.augmentedRealityConfiguration.trackingImages = dynamicConent
                     self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
+                    self.hideSpinner()
+                    print("download fin")
 
                 case .failure(let error):
                     print("An Error Occured While Downloading Images \(error)")
+                    self.hideSpinner()
+                    print("download fin")
             }
         }
     }

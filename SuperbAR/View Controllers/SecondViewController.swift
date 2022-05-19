@@ -10,6 +10,13 @@ import UIKit
 
 
 class SecondViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    func showSpinner(){
+        self.spinner.startAnimating()
+    }
+    func hideSpinner(){
+        self.spinner.stopAnimating()
+    }
     @IBOutlet weak var imageView: UIImageView?
     @IBOutlet weak var textLabel: UILabel?
     @IBOutlet weak var nameField: UITextField!{
@@ -100,6 +107,14 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil) }
 
     @IBAction func uploadImageAction() {
+        self.showSpinner()
+        print("upload start")
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+            self.hideSpinner()
+            print("upload fin")
+//            self.performSegue(withIdentifier: "SecondToFirst", sender: nil)
+
+        })
         if let image = imageView!.image{
             ImageUploader.uploadImage(name: nameField.text!, image:image, description: describtionField.text!, youtubeUrl: urlField.text!)
         }

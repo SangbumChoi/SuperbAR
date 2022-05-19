@@ -48,7 +48,6 @@ class ImageUploader{
                 .validate()
                 .responseData(emptyResponseCodes: [200, 204, 205]) { response in
                     // Process response.
-                    print(response)
                   }
         }
         task.resume()
