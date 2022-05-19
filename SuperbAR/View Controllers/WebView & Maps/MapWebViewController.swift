@@ -31,7 +31,6 @@ class MapWebViewController: UIViewController {
     override func viewDidLayoutSubviews() {
       
         if isWebsite{
-            print("test")
             setupWebView()
         }
        
@@ -50,14 +49,12 @@ class MapWebViewController: UIViewController {
         //1. Setup The WebView
         webView = WKWebView(frame: self.view.bounds)
         self.view.addSubview(webView!)
-        webAddress = "https://www.google.co.kr"
-        print(webAddress)
+        
+        webAddress = "https://www.youtube.com/watch?v=hz9pMw4Y2Lk"
 
         //2. Load The URL
         guard let webURL = URL(string: webAddress) else { return }
-        print(webURL)
         let request = URLRequest(url: webURL)
-        print(request)
         webView?.load(request)
     }
 }

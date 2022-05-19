@@ -68,8 +68,10 @@ class ARCard: SCNNode{
             let firstNameText = cardRoot.childNode(withName: "FirstName", recursively: false)?.geometry as? SCNText,
             let surnameText = cardRoot.childNode(withName: "Surname", recursively: false)?.geometry as? SCNText,
             let websiteButton = cardRoot.childNode(withName: "Website", recursively: false)
-            
+                            
         else { fatalError("Error Getting Business Card Node Data") }
+        
+        template.rootNode.childNodes.first?.childNodes.first.
         
         //3. If We Are Using The Standard Template We Will Also Show The User Profile Pic
         if cardType == .standard{
@@ -140,6 +142,7 @@ class ARCard: SCNNode{
         //2. Clear The Name Data
         self.firstNameText.string = firstName
         self.surnameText.string = surname
+        self.cardData.website = website
         // websiteButton.socialLinkData = website
         
         //2. Assign The Profile Image & Rotate It So It Is Hidden

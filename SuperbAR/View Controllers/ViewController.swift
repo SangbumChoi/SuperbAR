@@ -55,9 +55,9 @@ class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //1. Format The SideMenu Which Will Be Used To Display The Associates WebSites
-//        SideMenuManager.default.menuWidth = self.view.bounds.width * 0.5
-//        SideMenuManager.default.menuPresentMode = .menuSlideIn
-//        SideMenuManager.default.menuFadeStatusBar = false
+        SideMenuManager.default.menuWidth = self.view.bounds.width * 0.9
+        SideMenuManager.default.menuPresentMode = .menuSlideIn
+        SideMenuManager.default.menuFadeStatusBar = false
         
         // outputImageView.isHidden = true
         setupBusinessCard()
@@ -87,6 +87,8 @@ class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
                switch validLink.type{
                    
                case .Website:
+                   print(arCard.cardData.website)
+                   print(arCard.cardData.website.link)
                    mapWebView.webAddress = arCard.cardData.website.link
                    mapWebView.navigationItem.title = "Website"
                }
@@ -112,7 +114,7 @@ class ViewController: UIViewController, SideMenuNavigationControllerDelegate {
         ImageDownloader.downloadImagesFromPaths { (result) in
             switch result{
                 case .success(let dynamicConent):
-                    self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 5
+                    self.augmentedRealityConfiguration.maximumNumberOfTrackedImages = 1
                     self.augmentedRealityConfiguration.trackingImages = dynamicConent
                     self.augmentedRealitySession.run(self.augmentedRealityConfiguration, options: [.resetTracking, .removeExistingAnchors])
 
